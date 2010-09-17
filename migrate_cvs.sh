@@ -28,6 +28,12 @@ git branch -D unlabeled-1.51.2
 git branch -D unlabeled-1.59.2
 git branch -D unlabeled-1.87.2
 git branch -D unlabeled-1.90.2
+git branch -D ecpg_big_bison
+
+# Remove broken tags
+git tag -d SUPPORT
+git tag -d MANUAL_1_0
+git tag -d Release-1-6-0
 
 # Convert 8.0.0 branch to tag
 git tag REL8_0_0 REL8_0_0
