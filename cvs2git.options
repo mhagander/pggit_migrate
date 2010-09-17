@@ -525,7 +525,7 @@ author_transforms={
   'peter' : ('Peter Mount', 'peter@retep.org.uk'),
   'petere' : ('Peter Eisentraut', 'peter_e@gmx.net'),
   'pgsql' : ('PostgreSQL Daemon', 'webmaster@postgresql.org'),
-  'cvs2git': ('Git to CVS conversion script', 'webmaster@postgresql.org'),
+  'cvs2git': ('CVS to git conversion script', 'webmaster@postgresql.org'),
   'pjw' : ('Philip Warner', 'pjw@rhyme.com.au'),
   'rhaas' : ('Robert Haas', 'rhaas@postgresql.org'),
   'scrappy' : ('Marc G. Fournier', 'scrappy@hub.org'),
