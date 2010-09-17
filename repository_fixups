@@ -1,0 +1,4977 @@
+#!/bin/sh
+
+# Kill some generated files that somehow had patches committed even after
+# they were marked dead.
+for r in 2.89 2.90 2.91; do rcs -x,v -sdead:$r /cvsroot/pgsql/src/backend/parser/Attic/gram.c ; done
+for r in 1.3 1.4 1.5 1.6; do rcs -x,v -sdead:$r /cvsroot/pgsql/src/interfaces/ecpg/preproc/Attic/pgc.c ; done
+for r in 1.7 1.8 1.9 1.10 1.11 1.12; do rcs -x,v -sdead:$r /cvsroot/pgsql/src/interfaces/ecpg/preproc/Attic/preproc.c ; done
+for r in 1.3 1.4 1.5 1.6 1.7 1.8; do rcs -x,v -sdead:$r /cvsroot/pgsql/src/interfaces/ecpg/preproc/Attic/y.tab.h ; done
+
+# delete WIN32_DEV versions of generated files
+rcs -x,v -o1.11.2.1: /cvsroot/pgsql/src/interfaces/ecpg/preproc/Attic/preproc.c
+rcs -x,v -nWIN32_DEV /cvsroot/pgsql/src/interfaces/ecpg/preproc/Attic/preproc.c
+rcs -x,v -o1.3.2.1: /cvsroot/pgsql/src/interfaces/ecpg/preproc/Attic/preproc.h
+rcs -x,v -nWIN32_DEV /cvsroot/pgsql/src/interfaces/ecpg/preproc/Attic/preproc.h
+rcs -x,v -o1.5.2.1: /cvsroot/pgsql/src/interfaces/ecpg/preproc/Attic/pgc.c
+rcs -x,v -nWIN32_DEV /cvsroot/pgsql/src/interfaces/ecpg/preproc/Attic/pgc.c
+
+rcs -x,v -o2.90.2.1: /cvsroot/pgsql/src/backend/parser/Attic/gram.c
+rcs -x,v -nWIN32_DEV /cvsroot/pgsql/src/backend/parser/Attic/gram.c
+rcs -x,v -o2.20.2.1: /cvsroot/pgsql/src/backend/parser/Attic/parse.h
+rcs -x,v -nWIN32_DEV /cvsroot/pgsql/src/backend/parser/Attic/parse.h
+rcs -x,v -o1.38.2.1: /cvsroot/pgsql/src/backend/parser/Attic/scan.c
+rcs -x,v -nWIN32_DEV /cvsroot/pgsql/src/backend/parser/Attic/scan.c
+
+rcs -x,v -o1.1.2.1: /cvsroot/pgsql/src/backend/bootstrap/Attic/bootparse.c
+rcs -x,v -nWIN32_DEV /cvsroot/pgsql/src/backend/bootstrap/Attic/bootparse.c
+rcs -x,v -o1.1.2.1: /cvsroot/pgsql/src/backend/bootstrap/Attic/bootscanner.c
+rcs -x,v -nWIN32_DEV /cvsroot/pgsql/src/backend/bootstrap/Attic/bootscanner.c
+rcs -x,v -o1.1.2.1: /cvsroot/pgsql/src/backend/bootstrap/Attic/bootstrap_tokens.h
+rcs -x,v -nWIN32_DEV /cvsroot/pgsql/src/backend/bootstrap/Attic/bootstrap_tokens.h
+
+# these will have no live versions left at all, so just delete the RCS files
+rm -f /cvsroot/pgsql/src/pl/plpgsql/src/Attic/pl.tab.h,v
+rm -f /cvsroot/pgsql/src/pl/plpgsql/src/Attic/pl_gram.c,v
+rm -f /cvsroot/pgsql/src/pl/plpgsql/src/Attic/pl_scan.c,v
+
+# clean up HISTORY, INSTALL tags messed up by manual tag move
+rcs -x,v -nREL7_3_10 /cvsroot/pgsql/Attic/HISTORY
+rcs -x,v -nREL7_3_10 /cvsroot/pgsql/Attic/INSTALL
+
+# Not clear how these got tagged ...
+rcs -x,v -nREL8_0_23 /cvsroot/pgsql/contrib/xml2/sql/xml2.sql
+rcs -x,v -nREL8_0_23 /cvsroot/pgsql/contrib/xml2/expected/xml2.out
+rcs -x,v -nREL8_0_23 /cvsroot/pgsql/contrib/xml2/expected/xml2_1.out
+
+# nor how these didn't get tagged ...
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/doc/src/graphics/Attic/catalogs.ag
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/doc/src/graphics/Attic/catalogs.cgm
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/doc/src/graphics/Attic/catalogs.gif
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/doc/src/graphics/Attic/catalogs.ps
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/doc/src/graphics/Attic/clientserver.ag
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/doc/src/graphics/Attic/clientserver.gif
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/doc/src/graphics/Attic/connections.ag
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/doc/src/graphics/Attic/connections.gif
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/data/Attic/charset.conf
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/data/Attic/isocz-wincz.tab
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/data/Attic/koi-alt.tab
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/data/Attic/koi-iso.tab
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/data/Attic/koi-koi.tab
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/data/Attic/koi-mac.tab
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/data/Attic/koi-win.tab
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/cli/Attic/example1.c
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/cli/Attic/example2.c
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/cli/Attic/sqlcli.h
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/ecpg/lib/Attic/Makefile
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/ecpg/lib/Attic/connect.c
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/ecpg/lib/Attic/data.c
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/ecpg/lib/Attic/descriptor.c
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/ecpg/lib/Attic/error.c
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/ecpg/lib/Attic/execute.c
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/ecpg/lib/Attic/extern.h
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/ecpg/lib/Attic/memory.c
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/ecpg/lib/Attic/misc.c
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/ecpg/lib/Attic/pg_type.h
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/ecpg/lib/Attic/prepare.c
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/ecpg/lib/Attic/typename.c
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/Attic/Announce
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/Attic/ChangeLog
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/Attic/GNUmakefile
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/Attic/PyGreSQL.spec
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/Attic/README
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/Attic/Setup.in.raw
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/Attic/pg.py
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/Attic/pgdb.py
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/Attic/pgmodule.c
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/Attic/setup.py
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/tutorial/Attic/advanced.py
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/tutorial/Attic/basics.py
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/tutorial/Attic/func.py
+rcs -x,v -nREL7_3_5:REL7_3_4 /cvsroot/pgsql/src/interfaces/python/tutorial/Attic/syscat.py
+
+# another missed tag
+rcs -x,v -nrelease-6-3:2.3 /cvsroot/pgsql/src/backend/parser/Attic/gram.c
+
+# Relabel tag REL7_1 as REL7_1_BETA in various files that were deleted between
+# the original placement of that tag and its renaming.  The renaming action
+# evidently missed files that'd been deleted in between.
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/contrib/linux/Attic/postgres.init.csh
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/contrib/linux/Attic/postgres.init.sh
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/Attic/FAQ_BSDI
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/Attic/README.mb
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/cidr
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/cnfify
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/flock
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/function
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/inherit
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/logging
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/memory
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/outer
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/pglog
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/subquery
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/about.sgml
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/environ.sgml
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/intro-ag.sgml
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/intro-pg.sgml
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/keys.sgml
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/oper.sgml
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/plan.sgml
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/populate.sgml
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/backend/port/hpux/Attic/port-protos.h
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/backend/storage/lmgr/Attic/multi.c
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/backend/storage/lmgr/Attic/single.c
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/bin/pgaccess/lib/Attic/qed
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/include/regex/Attic/cdefs.h
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/include/regex/Attic/regexp.h
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/Attic/README_6.3
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/org/postgresql/xa/Attic/Test.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/Connection.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/Driver.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/Field.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/PG_Stream.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/ResultSet.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/errors.properties
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/errors_fr.properties
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/fastpath/Attic/Fastpath.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/fastpath/Attic/FastpathArg.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGbox.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGcircle.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGline.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGlseg.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGpath.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGpoint.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGpolygon.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/CallableStatement.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/Connection.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/DatabaseMetaData.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/PreparedStatement.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/ResultSet.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/ResultSetMetaData.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/Statement.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/CallableStatement.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/Connection.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/DatabaseMetaData.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/PreparedStatement.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/ResultSet.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/ResultSetMetaData.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/Statement.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/largeobject/Attic/LargeObject.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/largeobject/Attic/LargeObjectManager.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/util/Attic/PGmoney.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/util/Attic/PGobject.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/util/Attic/PGtokenizer.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/util/Attic/PSQLException.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/util/Attic/Serialize.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/util/Attic/UnixCrypt.java
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/interfaces/libpq++/Attic/dependencies
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/pl/plpgsql/Attic/enable_plpgsql
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/pl/plpgsql/src/Attic/mklang.sql.in
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/test/regress/expected/Attic/abstime-1947-PDT.out
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/test/regress/expected/Attic/horology-1947-PDT.out
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/test/regress/expected/Attic/tinterval-1947-PDT.out
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/tools/mkldexport/Attic/Makefile
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/tools/mkldexport/Attic/README
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/tools/mkldexport/Attic/mkldexport.sh
+rcs -x,v -nREL7_1_BETA:REL7_1 /cvsroot/pgsql/src/tools/Attic/release_prep
+
+rcs -x,v -nREL7_1 /cvsroot/pgsql/contrib/linux/Attic/postgres.init.csh
+rcs -x,v -nREL7_1 /cvsroot/pgsql/contrib/linux/Attic/postgres.init.sh
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/Attic/FAQ_BSDI
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/Attic/README.mb
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/cidr
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/cnfify
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/flock
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/function
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/inherit
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/logging
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/memory
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/outer
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/pglog
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/TODO.detail/Attic/subquery
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/about.sgml
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/environ.sgml
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/intro-ag.sgml
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/intro-pg.sgml
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/keys.sgml
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/oper.sgml
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/plan.sgml
+rcs -x,v -nREL7_1 /cvsroot/pgsql/doc/src/sgml/Attic/populate.sgml
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/backend/port/hpux/Attic/port-protos.h
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/backend/storage/lmgr/Attic/multi.c
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/backend/storage/lmgr/Attic/single.c
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/bin/pgaccess/lib/Attic/qed
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/include/regex/Attic/cdefs.h
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/include/regex/Attic/regexp.h
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/Attic/README_6.3
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/org/postgresql/xa/Attic/Test.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/Connection.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/Driver.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/Field.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/PG_Stream.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/ResultSet.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/errors.properties
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/Attic/errors_fr.properties
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/fastpath/Attic/Fastpath.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/fastpath/Attic/FastpathArg.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGbox.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGcircle.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGline.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGlseg.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGpath.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGpoint.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/geometric/Attic/PGpolygon.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/CallableStatement.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/Connection.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/DatabaseMetaData.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/PreparedStatement.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/ResultSet.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/ResultSetMetaData.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc1/Attic/Statement.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/CallableStatement.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/Connection.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/DatabaseMetaData.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/PreparedStatement.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/ResultSet.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/ResultSetMetaData.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/jdbc2/Attic/Statement.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/largeobject/Attic/LargeObject.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/largeobject/Attic/LargeObjectManager.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/util/Attic/PGmoney.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/util/Attic/PGobject.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/util/Attic/PGtokenizer.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/util/Attic/PSQLException.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/util/Attic/Serialize.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/jdbc/postgresql/util/Attic/UnixCrypt.java
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/interfaces/libpq++/Attic/dependencies
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/pl/plpgsql/Attic/enable_plpgsql
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/pl/plpgsql/src/Attic/mklang.sql.in
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/test/regress/expected/Attic/abstime-1947-PDT.out
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/test/regress/expected/Attic/horology-1947-PDT.out
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/test/regress/expected/Attic/tinterval-1947-PDT.out
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/tools/mkldexport/Attic/Makefile
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/tools/mkldexport/Attic/README
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/tools/mkldexport/Attic/mkldexport.sh
+rcs -x,v -nREL7_1 /cvsroot/pgsql/src/tools/Attic/release_prep
+
+# Add REL2_0 tag and REL2_0B branch to some files that were missing them
+# (probably this was an artifact of the old split-repository kluge)
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/COPYRIGHT
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/Attic/HISTORY
+rcs -x,v -nREL2_0:1.9 /cvsroot/pgsql/Attic/INSTALL
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/Attic/MIGRATION_to_1.02.1
+rcs -x,v -nREL2_0:1.2 /cvsroot/pgsql/README
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/contrib/array/Attic/array_iterator.c
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/contrib/array/Attic/array_iterator.doc
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/contrib/array/Attic/array_iterator.sql
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/contrib/datetime/Attic/datetime_functions.c
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/contrib/datetime/Attic/datetime_functions.doc
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/contrib/datetime/Attic/datetime_functions.sql
+rcs -x,v -nREL2_0:1.3 /cvsroot/pgsql/contrib/pginterface/Attic/Makefile
+rcs -x,v -nREL2_0:1.4 /cvsroot/pgsql/contrib/pginterface/Attic/README
+rcs -x,v -nREL2_0:1.3 /cvsroot/pgsql/contrib/pginterface/Attic/halt.c
+rcs -x,v -nREL2_0:1.3 /cvsroot/pgsql/contrib/pginterface/Attic/halt.h
+rcs -x,v -nREL2_0:1.3 /cvsroot/pgsql/contrib/pginterface/Attic/pginsert.c
+rcs -x,v -nREL2_0:1.4 /cvsroot/pgsql/contrib/pginterface/Attic/pginterface.c
+rcs -x,v -nREL2_0:1.4 /cvsroot/pgsql/contrib/pginterface/Attic/pginterface.h
+rcs -x,v -nREL2_0:1.3 /cvsroot/pgsql/contrib/pginterface/Attic/pgnulltest.c
+rcs -x,v -nREL2_0:1.3 /cvsroot/pgsql/contrib/pginterface/Attic/pgwordcount.c
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/contrib/soundex/Attic/soundex.c
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/contrib/soundex/Attic/soundex.sql
+rcs -x,v -nREL2_0:1.2 /cvsroot/pgsql/contrib/string/Attic/string_io.c
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/contrib/string/Attic/string_io.sql
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/contrib/zap_ltv/Attic/README
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/contrib/zap_ltv/Attic/zap_ltv.pl
+rcs -x,v -nREL2_0:1.3 /cvsroot/pgsql/doc/Attic/FAQ
+rcs -x,v -nREL2_0:1.2 /cvsroot/pgsql/doc/Attic/FAQ-Irix
+rcs -x,v -nREL2_0:1.2 /cvsroot/pgsql/doc/Attic/FAQ-Linux
+rcs -x,v -nREL2_0:1.1 /cvsroot/pgsql/doc/Attic/MIGRATION_1.0_to_1.01
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/doc/Attic/README.flex
+rcs -x,v -nREL2_0:1.1 /cvsroot/pgsql/doc/Attic/README.fsync
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/doc/Attic/README.support
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/doc/Attic/RELEASE.patchlevel
+rcs -x,v -nREL2_0:1.2 /cvsroot/pgsql/doc/TODO
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/doc/bug.template
+rcs -x,v -nREL2_0:1.2 /cvsroot/pgsql/doc/Attic/libpgtcl.doc
+rcs -x,v -nREL2_0:1.1.1.1 /cvsroot/pgsql/doc/Attic/userguide.ps
+
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/COPYRIGHT
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/Attic/HISTORY
+rcs -x,v -nREL2_0B:1.9.0.2 /cvsroot/pgsql/Attic/INSTALL
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/Attic/MIGRATION_to_1.02.1
+rcs -x,v -nREL2_0B:1.2.0.2 /cvsroot/pgsql/README
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/contrib/array/Attic/array_iterator.c
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/contrib/array/Attic/array_iterator.doc
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/contrib/array/Attic/array_iterator.sql
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/contrib/datetime/Attic/datetime_functions.c
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/contrib/datetime/Attic/datetime_functions.doc
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/contrib/datetime/Attic/datetime_functions.sql
+rcs -x,v -nREL2_0B:1.3.0.2 /cvsroot/pgsql/contrib/pginterface/Attic/Makefile
+rcs -x,v -nREL2_0B:1.4.0.2 /cvsroot/pgsql/contrib/pginterface/Attic/README
+rcs -x,v -nREL2_0B:1.3.0.2 /cvsroot/pgsql/contrib/pginterface/Attic/halt.c
+rcs -x,v -nREL2_0B:1.3.0.2 /cvsroot/pgsql/contrib/pginterface/Attic/halt.h
+rcs -x,v -nREL2_0B:1.3.0.2 /cvsroot/pgsql/contrib/pginterface/Attic/pginsert.c
+rcs -x,v -nREL2_0B:1.4.0.2 /cvsroot/pgsql/contrib/pginterface/Attic/pginterface.c
+rcs -x,v -nREL2_0B:1.4.0.2 /cvsroot/pgsql/contrib/pginterface/Attic/pginterface.h
+rcs -x,v -nREL2_0B:1.3.0.2 /cvsroot/pgsql/contrib/pginterface/Attic/pgnulltest.c
+rcs -x,v -nREL2_0B:1.3.0.2 /cvsroot/pgsql/contrib/pginterface/Attic/pgwordcount.c
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/contrib/soundex/Attic/soundex.c
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/contrib/soundex/Attic/soundex.sql
+rcs -x,v -nREL2_0B:1.2.0.2 /cvsroot/pgsql/contrib/string/Attic/string_io.c
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/contrib/string/Attic/string_io.sql
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/contrib/zap_ltv/Attic/README
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/contrib/zap_ltv/Attic/zap_ltv.pl
+rcs -x,v -nREL2_0B:1.3.0.2 /cvsroot/pgsql/doc/Attic/FAQ
+rcs -x,v -nREL2_0B:1.2.0.2 /cvsroot/pgsql/doc/Attic/FAQ-Irix
+rcs -x,v -nREL2_0B:1.2.0.2 /cvsroot/pgsql/doc/Attic/FAQ-Linux
+rcs -x,v -nREL2_0B:1.1.0.2 /cvsroot/pgsql/doc/Attic/MIGRATION_1.0_to_1.01
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/doc/Attic/README.flex
+rcs -x,v -nREL2_0B:1.1.0.8 /cvsroot/pgsql/doc/Attic/README.fsync
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/doc/Attic/README.support
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/doc/Attic/RELEASE.patchlevel
+rcs -x,v -nREL2_0B:1.2.0.2 /cvsroot/pgsql/doc/TODO
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/doc/bug.template
+rcs -x,v -nREL2_0B:1.2.0.2 /cvsroot/pgsql/doc/Attic/libpgtcl.doc
+rcs -x,v -nREL2_0B:1.1.1.1.0.2 /cvsroot/pgsql/doc/Attic/userguide.ps
+
+# Finally, manually patch assorted files in which the file was added to
+# mainline and then back-patched into release branches at a significantly
+# later point.  The CVS repository fails to show that these files didn't
+# exist on the back branch right along, so we need a hack to show that.
+# NOTE: the log messages for the dead revisions must match a regexp
+# inside cvs2git, or it won't do what we want with these.
+
+cd /cvsroot
+
+chmod u+w pgsql/contrib/cube/expected/cube_1.out,v
+chmod u+w pgsql/doc/Attic/FAQ_HPUX,v
+chmod u+w pgsql/doc/Attic/FAQ_czeck,v
+chmod u+w pgsql/doc/Attic/FAQ_hungarian,v
+chmod u+w pgsql/doc/Attic/FAQ_turkish,v
+chmod u+w pgsql/doc/src/FAQ/Attic/FAQ_czech.html,v
+chmod u+w pgsql/doc/src/FAQ/Attic/FAQ_hungarian.html,v
+chmod u+w pgsql/doc/src/FAQ/Attic/FAQ_turkish.html,v
+chmod u+w pgsql/src/backend/utils/cache/typcache.c,v
+chmod u+w pgsql/src/bin/pg_dump/po/it.po,v
+chmod u+w pgsql/src/include/utils/typcache.h,v
+chmod u+w pgsql/src/port/unsetenv.c,v
+chmod u+w pgsql/src/test/regress/expected/geometry_2.out,v
+chmod u+w pgsql/src/test/regress/expected/update.out,v
+chmod u+w pgsql/src/test/regress/sql/update.sql,v
+chmod u+w pgsql/src/win32/Attic/ipc.patch,v
+chmod u+w pgsql/README.CVS,v
+chmod u+w pgsql/contrib/xml2/expected/xml2.out,v
+chmod u+w pgsql/contrib/xml2/expected/xml2_1.out,v
+chmod u+w pgsql/contrib/xml2/sql/xml2.sql,v
+chmod u+w pgsql/doc/Attic/FAQ_brazilian,v
+chmod u+w pgsql/doc/Attic/FAQ_chinese,v
+chmod u+w pgsql/doc/Attic/FAQ_chinese_simp,v
+chmod u+w pgsql/doc/Attic/FAQ_chinese_trad,v
+chmod u+w pgsql/doc/Attic/FAQ_russian,v
+chmod u+w pgsql/doc/Attic/README.Charsets,v
+chmod u+w pgsql/doc/src/FAQ/Attic/FAQ_brazilian.html,v
+chmod u+w pgsql/doc/src/FAQ/Attic/FAQ_chinese.html,v
+chmod u+w pgsql/doc/src/FAQ/Attic/FAQ_chinese_simp.html,v
+chmod u+w pgsql/doc/src/FAQ/Attic/FAQ_chinese_trad.html,v
+chmod u+w pgsql/doc/src/FAQ/Attic/FAQ_russian.html,v
+chmod u+w pgsql/doc/src/sgml/generate_history.pl,v
+chmod u+w pgsql/doc/src/sgml/release-7.4.sgml,v
+chmod u+w pgsql/doc/src/sgml/release-8.0.sgml,v
+chmod u+w pgsql/doc/src/sgml/release-8.1.sgml,v
+chmod u+w pgsql/doc/src/sgml/release-8.2.sgml,v
+chmod u+w pgsql/doc/src/sgml/release-8.3.sgml,v
+chmod u+w pgsql/doc/src/sgml/release-old.sgml,v
+chmod u+w pgsql/src/backend/po/pt_BR.po,v
+chmod u+w pgsql/src/backend/storage/file/copydir.c,v
+chmod u+w pgsql/src/bin/pg_controldata/po/Attic/zh_TW.po,v
+chmod u+w pgsql/src/bin/pg_controldata/po/tr.po,v
+chmod u+w pgsql/src/bin/pg_resetxlog/po/tr.po,v
+chmod u+w pgsql/src/bin/pgaccess/Attic/Makefile,v
+chmod u+w pgsql/src/bin/pgaccess/Attic/Makefile.in,v
+chmod u+w pgsql/src/bin/pgaccess/Attic/libpgtcl.dll,v
+chmod u+w pgsql/src/bin/pgaccess/Attic/libpq.dll,v
+chmod u+w pgsql/src/bin/pgaccess/Attic/pgaccess.sh,v
+chmod u+w pgsql/src/bin/psql/po/tr.po,v
+chmod u+w pgsql/src/bin/scripts/po/tr.po,v
+chmod u+w pgsql/src/data/Attic/isocz-wincz.tab,v
+chmod u+w pgsql/src/interfaces/jdbc/org/postgresql/Attic/errors_pt_BR.properties,v
+chmod u+w pgsql/src/interfaces/jdbc/org/postgresql/test/jdbc2/Attic/OID74Test.java,v
+chmod u+w pgsql/src/interfaces/libpq/po/tr.po,v
+chmod u+w pgsql/src/interfaces/python/Attic/advanced.py,v
+chmod u+w pgsql/src/interfaces/python/Attic/basics.py,v
+chmod u+w pgsql/src/interfaces/python/Attic/func.py,v
+chmod u+w pgsql/src/interfaces/python/Attic/mkdefines,v
+chmod u+w pgsql/src/interfaces/python/Attic/pg.py,v
+chmod u+w pgsql/src/interfaces/python/Attic/pgtools.py,v
+chmod u+w pgsql/src/interfaces/python/Attic/syscat.py,v
+chmod u+w pgsql/src/pl/plperl/plperl_opmask.pl,v
+chmod u+w pgsql/src/pl/plpgsql/Attic/enable_plpgsql,v
+chmod u+w pgsql/src/pl/plpython/expected/Attic/plpython_error_3.out,v
+chmod u+w pgsql/src/test/regress/expected/Attic/join_1.out,v
+chmod u+w pgsql/src/tools/version_stamp.pl,v
+
+patch -p1 <<EOFEOF
+diff -cr repo/pgsql/contrib/cube/expected/cube_1.out,v repo.patched/pgsql/contrib/cube/expected/cube_1.out,v
+*** repo/pgsql/contrib/cube/expected/cube_1.out,v	Sat Sep  4 07:18:25 2010
+--- repo.patched/pgsql/contrib/cube/expected/cube_1.out,v	Sat Sep 11 15:28:45 2010
+***************
+*** 213,220 ****
+  1.2
+  date	2005.06.27.01.19.43;	author tgl;	state Exp;
+  branches
+! 	1.2.2.1
+! 	1.2.4.1;
+  next	1.1;
+  
+  1.1
+--- 213,220 ----
+  1.2
+  date	2005.06.27.01.19.43;	author tgl;	state Exp;
+  branches
+! 	1.2.2.0
+! 	1.2.4.0;
+  next	1.1;
+  
+  1.1
+***************
+*** 222,232 ****
+--- 222,242 ----
+  branches;
+  next	;
+  
++ 1.2.2.0
++ date	2005.06.27.01.19.43;	author tgl;	state dead;
++ branches;
++ next	1.2.2.1;
++ 
+  1.2.2.1
+  date	2005.07.16.20.11.12;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.2.4.0
++ date	2005.06.27.01.19.43;	author tgl;	state dead;
++ branches;
++ next	1.2.4.1;
++ 
+  1.2.4.1
+  date	2005.07.17.17.36.56;	author tgl;	state Exp;
+  branches;
+***************
+*** 1672,1677 ****
+--- 1682,1695 ----
+  @
+  
+  
++ 1.2.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.2.4.1
+  log
+  @Looks like cube_1 variant is also needed in 7.3 branch.
+***************
+*** 2086,2091 ****
+--- 2104,2117 ----
+  @
+  
+  
++ 1.2.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.2.2.1
+  log
+  @cube_1 variant is needed in 7.4 branch, per results from buildfarm
+diff -cr repo/pgsql/doc/Attic/FAQ_HPUX,v repo.patched/pgsql/doc/Attic/FAQ_HPUX,v
+*** repo/pgsql/doc/Attic/FAQ_HPUX,v	Thu May 13 23:44:40 2010
+--- repo.patched/pgsql/doc/Attic/FAQ_HPUX,v	Sun Sep 12 12:39:34 2010
+***************
+*** 283,291 ****
+  1.1
+  date	98.11.28.23.10.22;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	98.12.18.05.25.57;	author momjian;	state Exp;
+  branches;
+--- 283,296 ----
+  1.1
+  date	98.11.28.23.10.22;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	98.11.28.23.10.22;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	98.12.18.05.25.57;	author momjian;	state Exp;
+  branches;
+***************
+*** 1314,1319 ****
+--- 1319,1332 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Prepare for 6.4.1.
+diff -cr repo/pgsql/doc/Attic/FAQ_czeck,v repo.patched/pgsql/doc/Attic/FAQ_czeck,v
+*** repo/pgsql/doc/Attic/FAQ_czeck,v	Tue Dec 16 04:47:55 2003
+--- repo.patched/pgsql/doc/Attic/FAQ_czeck,v	Sun Sep 12 15:32:47 2010
+***************
+*** 14,22 ****
+  1.1
+  date	2003.12.13.16.56.00;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2003.12.15.15.30.17;	author momjian;	state Exp;
+  branches;
+--- 14,27 ----
+  1.1
+  date	2003.12.13.16.56.00;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2003.12.13.16.56.00;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2003.12.15.15.30.17;	author momjian;	state Exp;
+  branches;
+***************
+*** 1239,1244 ****
+--- 1244,1257 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Add Czech FAQ to 7.4.X branch.
+diff -cr repo/pgsql/doc/Attic/FAQ_hungarian,v repo.patched/pgsql/doc/Attic/FAQ_hungarian,v
+*** repo/pgsql/doc/Attic/FAQ_hungarian,v	Thu May 13 23:44:40 2010
+--- repo.patched/pgsql/doc/Attic/FAQ_hungarian,v	Sat Sep 11 12:39:17 2010
+***************
+*** 190,196 ****
+  1.3
+  date	2003.02.18.17.20.37;	author momjian;	state Exp;
+  branches
+! 	1.3.2.1
+  	1.3.10.1;
+  next	1.2;
+  
+--- 190,196 ----
+  1.3
+  date	2003.02.18.17.20.37;	author momjian;	state Exp;
+  branches
+! 	1.3.2.0
+  	1.3.10.1;
+  next	1.2;
+  
+***************
+*** 204,209 ****
+--- 204,214 ----
+  branches;
+  next	;
+  
++ 1.3.2.0
++ date	2003.02.18.17.20.37;	author momjian;	state dead;
++ branches;
++ next	1.3.2.1;
++ 
+  1.3.2.1
+  date	2003.07.24.00.53.56;	author momjian;	state Exp;
+  branches;
+***************
+*** 3986,3991 ****
+--- 3991,4004 ----
+  @
+  
+  
++ 1.3.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.3.2.1
+  log
+  @Add Hungarian/Turkish FAQ's to 7.3.4.
+diff -cr repo/pgsql/doc/Attic/FAQ_turkish,v repo.patched/pgsql/doc/Attic/FAQ_turkish,v
+*** repo/pgsql/doc/Attic/FAQ_turkish,v	Thu May 13 23:44:40 2010
+--- repo.patched/pgsql/doc/Attic/FAQ_turkish,v	Sun Sep 12 12:39:41 2010
+***************
+*** 244,252 ****
+  1.1
+  date	2003.06.02.18.16.56;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2003.07.24.00.53.57;	author momjian;	state Exp;
+  branches;
+--- 244,257 ----
+  1.1
+  date	2003.06.02.18.16.56;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2003.06.02.18.16.56;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2003.07.24.00.53.57;	author momjian;	state Exp;
+  branches;
+***************
+*** 6086,6091 ****
+--- 6091,6104 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Add Hungarian/Turkish FAQ's to 7.3.4.
+diff -cr repo/pgsql/doc/src/FAQ/Attic/FAQ_czech.html,v repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_czech.html,v
+*** repo/pgsql/doc/src/FAQ/Attic/FAQ_czech.html,v	Thu May 13 23:44:41 2010
+--- repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_czech.html,v	Sun Sep 12 15:31:27 2010
+***************
+*** 205,213 ****
+  1.1
+  date	2003.12.13.16.56.00;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2003.12.15.15.30.17;	author momjian;	state Exp;
+  branches;
+--- 205,218 ----
+  1.1
+  date	2003.12.13.16.56.00;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2003.12.13.16.56.00;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2003.12.15.15.30.17;	author momjian;	state Exp;
+  branches;
+***************
+*** 3457,3462 ****
+--- 3462,3475 ----
+  </body></html>@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Add Czech FAQ to 7.4.X branch.
+diff -cr repo/pgsql/doc/src/FAQ/Attic/FAQ_hungarian.html,v repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_hungarian.html,v
+*** repo/pgsql/doc/src/FAQ/Attic/FAQ_hungarian.html,v	Thu May 13 23:39:10 2010
+--- repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_hungarian.html,v	Sat Sep 11 12:39:17 2010
+***************
+*** 111,117 ****
+  1.3
+  date	2005.06.06.16.30.42;	author momjian;	state Exp;
+  branches
+! 	1.3.2.1
+  	1.3.10.1;
+  next	1.2;
+  
+--- 111,117 ----
+  1.3
+  date	2005.06.06.16.30.42;	author momjian;	state Exp;
+  branches
+! 	1.3.2.0
+  	1.3.10.1;
+  next	1.2;
+  
+***************
+*** 125,130 ****
+--- 125,135 ----
+  branches;
+  next	;
+  
++ 1.3.2.0
++ date	2005.06.06.16.30.42;	author momjian;	state dead;
++ branches;
++ next	1.3.2.1;
++ 
+  1.3.2.1
+  date	2005.10.04.14.17.44;	author momjian;	state Exp;
+  branches;
+***************
+*** 1850,1855 ****
+--- 1855,1868 ----
+  @@
+  
+  
++ 1.3.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.3.2.1
+  log
+  @Add FAQ_hungarian.html to 8.0.X branch.
+diff -cr repo/pgsql/doc/src/FAQ/Attic/FAQ_turkish.html,v repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_turkish.html,v
+*** repo/pgsql/doc/src/FAQ/Attic/FAQ_turkish.html,v	Thu May 13 23:44:41 2010
+--- repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_turkish.html,v	Sun Sep 12 12:39:47 2010
+***************
+*** 254,262 ****
+  1.1
+  date	2003.06.02.18.16.56;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2003.07.24.00.53.57;	author momjian;	state Exp;
+  branches;
+--- 254,267 ----
+  1.1
+  date	2003.06.02.18.16.56;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2003.06.02.18.16.56;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2003.07.24.00.53.57;	author momjian;	state Exp;
+  branches;
+***************
+*** 6175,6180 ****
+--- 6180,6193 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Add Hungarian/Turkish FAQ's to 7.3.4.
+diff -cr repo/pgsql/src/backend/utils/cache/typcache.c,v repo.patched/pgsql/src/backend/utils/cache/typcache.c,v
+*** repo/pgsql/src/backend/utils/cache/typcache.c,v	Sat Sep  4 07:18:40 2010
+--- repo.patched/pgsql/src/backend/utils/cache/typcache.c,v	Sun Sep 12 10:38:01 2010
+***************
+*** 346,354 ****
+  1.1
+  date	2003.08.17.19.58.06;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2003.09.07.04.36.55;	author momjian;	state Exp;
+  branches;
+--- 346,359 ----
+  1.1
+  date	2003.08.17.19.58.06;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2003.08.17.19.58.06;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2003.09.07.04.36.55;	author momjian;	state Exp;
+  branches;
+***************
+*** 2465,2470 ****
+--- 2470,2483 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Update this branch to match CVS head, includes WIN32 improvements.
+diff -cr repo/pgsql/src/bin/pg_dump/po/it.po,v repo.patched/pgsql/src/bin/pg_dump/po/it.po,v
+*** repo/pgsql/src/bin/pg_dump/po/it.po,v	Sat Sep  4 07:18:42 2010
+--- repo.patched/pgsql/src/bin/pg_dump/po/it.po,v	Sat Sep 11 12:33:07 2010
+***************
+*** 173,179 ****
+  1.7
+  date	2010.02.19.00.40.04;	author petere;	state Exp;
+  branches
+! 	1.7.6.1;
+  next	1.6;
+  
+  1.6
+--- 173,179 ----
+  1.7
+  date	2010.02.19.00.40.04;	author petere;	state Exp;
+  branches
+! 	1.7.6.0;
+  next	1.6;
+  
+  1.6
+***************
+*** 206,211 ****
+--- 206,216 ----
+  branches;
+  next	;
+  
++ 1.7.6.0
++ date	2010.02.19.00.40.04;	author petere;	state dead;
++ branches;
++ next	1.7.6.1;
++ 
+  1.7.6.1
+  date	2010.05.13.10.50.03;	author petere;	state Exp;
+  branches;
+***************
+*** 3636,3641 ****
+--- 3641,3654 ----
+  @
+  
+  
++ 1.7.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.7.6.1
+  log
+  @Translation update
+diff -cr repo/pgsql/src/include/utils/typcache.h,v repo.patched/pgsql/src/include/utils/typcache.h,v
+*** repo/pgsql/src/include/utils/typcache.h,v	Sat Sep  4 07:18:49 2010
+--- repo.patched/pgsql/src/include/utils/typcache.h,v	Sun Sep 12 10:59:10 2010
+***************
+*** 275,283 ****
+  1.1
+  date	2003.08.17.19.58.06;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2003.09.07.04.37.09;	author momjian;	state Exp;
+  branches;
+--- 275,288 ----
+  1.1
+  date	2003.08.17.19.58.06;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2003.08.17.19.58.06;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2003.09.07.04.37.09;	author momjian;	state Exp;
+  branches;
+***************
+*** 914,919 ****
+--- 919,932 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Update this branch to match CVS head, includes WIN32 improvements.
+diff -cr repo/pgsql/src/port/unsetenv.c,v repo.patched/pgsql/src/port/unsetenv.c,v
+*** repo/pgsql/src/port/unsetenv.c,v	Tue Sep  7 10:10:39 2010
+--- repo.patched/pgsql/src/port/unsetenv.c,v	Sat Sep 11 12:39:27 2010
+***************
+*** 203,210 ****
+  1.6
+  date	2005.11.22.18.17.34;	author momjian;	state Exp;
+  branches
+! 	1.6.2.1
+! 	1.6.4.1;
+  next	1.5;
+  
+  1.5
+--- 203,210 ----
+  1.6
+  date	2005.11.22.18.17.34;	author momjian;	state Exp;
+  branches
+! 	1.6.2.0
+! 	1.6.4.0;
+  next	1.5;
+  
+  1.5
+***************
+*** 238,248 ****
+--- 238,258 ----
+  branches;
+  next	;
+  
++ 1.6.2.0
++ date	2005.11.22.18.17.34;	author momjian;	state dead;
++ branches;
++ next	1.6.2.1;
++ 
+  1.6.2.1
+  date	2006.01.05.00.51.25;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.6.4.0
++ date	2005.11.22.18.17.34;	author momjian;	state dead;
++ branches;
++ next	1.6.4.1;
++ 
+  1.6.4.1
+  date	2006.01.05.00.51.52;	author tgl;	state Exp;
+  branches;
+***************
+*** 433,438 ****
+--- 443,456 ----
+  @
+  
+  
++ 1.6.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.6.4.1
+  log
+  @Add port support for unsetenv() in back branches.  Needed for locale
+***************
+*** 445,450 ****
+--- 463,476 ----
+  @
+  
+  
++ 1.6.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.6.2.1
+  log
+  @Add port support for unsetenv() in back branches.  Needed for locale
+diff -cr repo/pgsql/src/test/regress/expected/geometry_2.out,v repo.patched/pgsql/src/test/regress/expected/geometry_2.out,v
+*** repo/pgsql/src/test/regress/expected/geometry_2.out,v	Sat Sep  4 07:19:26 2010
+--- repo.patched/pgsql/src/test/regress/expected/geometry_2.out,v	Sat Sep 11 15:32:56 2010
+***************
+*** 198,204 ****
+  date	2004.12.02.01.34.17;	author tgl;	state Exp;
+  branches
+  	1.2.4.1
+! 	1.2.6.1;
+  next	1.1;
+  
+  1.1
+--- 198,204 ----
+  date	2004.12.02.01.34.17;	author tgl;	state Exp;
+  branches
+  	1.2.4.1
+! 	1.2.6.0;
+  next	1.1;
+  
+  1.1
+***************
+*** 211,216 ****
+--- 211,221 ----
+  branches;
+  next	;
+  
++ 1.2.6.0
++ date	2004.12.02.01.34.17;	author tgl;	state dead;
++ branches;
++ next	1.2.6.1;
++ 
+  1.2.6.1
+  date	2005.07.16.18.39.26;	author tgl;	state Exp;
+  branches;
+***************
+*** 959,964 ****
+--- 964,977 ----
+  @
+  
+  
++ 1.2.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.2.6.1
+  log
+  @The geometry_2 variant appears to be needed in 7.4 branch as well as
+diff -cr repo/pgsql/src/test/regress/expected/update.out,v repo.patched/pgsql/src/test/regress/expected/update.out,v
+*** repo/pgsql/src/test/regress/expected/update.out,v	Sat Sep  4 07:19:26 2010
+--- repo.patched/pgsql/src/test/regress/expected/update.out,v	Sun Sep 12 10:58:42 2010
+***************
+*** 205,213 ****
+  1.1
+  date	2003.08.26.18.32.23;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2003.09.07.04.37.13;	author momjian;	state Exp;
+  branches;
+--- 205,218 ----
+  1.1
+  date	2003.08.26.18.32.23;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2003.08.26.18.32.23;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2003.09.07.04.37.13;	author momjian;	state Exp;
+  branches;
+***************
+*** 440,445 ****
+--- 445,458 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Update this branch to match CVS head, includes WIN32 improvements.
+diff -cr repo/pgsql/src/test/regress/sql/update.sql,v repo.patched/pgsql/src/test/regress/sql/update.sql,v
+*** repo/pgsql/src/test/regress/sql/update.sql,v	Sat Sep  4 07:19:26 2010
+--- repo.patched/pgsql/src/test/regress/sql/update.sql,v	Sun Sep 12 11:00:31 2010
+***************
+*** 205,213 ****
+  1.1
+  date	2003.08.26.18.32.23;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2003.09.07.04.37.13;	author momjian;	state Exp;
+  branches;
+--- 205,218 ----
+  1.1
+  date	2003.08.26.18.32.23;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2003.08.26.18.32.23;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2003.09.07.04.37.13;	author momjian;	state Exp;
+  branches;
+***************
+*** 371,376 ****
+--- 376,389 ----
+  DROP TABLE update_test;@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Update this branch to match CVS head, includes WIN32 improvements.
+diff -cr repo/pgsql/src/win32/Attic/ipc.patch,v repo.patched/pgsql/src/win32/Attic/ipc.patch,v
+*** repo/pgsql/src/win32/Attic/ipc.patch,v	Wed Dec 29 05:28:00 1999
+--- repo.patched/pgsql/src/win32/Attic/ipc.patch,v	Sat Sep 11 18:13:36 2010
+***************
+*** 24,32 ****
+  1.1
+  date	99.09.24.05.58.48;	author inoue;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	99.12.29.10.14.46;	author momjian;	state Exp;
+  branches;
+--- 24,37 ----
+  1.1
+  date	99.09.24.05.58.48;	author inoue;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	99.09.24.05.58.48;	author inoue;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	99.12.29.10.14.46;	author momjian;	state Exp;
+  branches;
+***************
+*** 362,367 ****
+--- 367,380 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Add NT patch.
+diff -cra repo/pgsql/README.CVS,v repo.patched/pgsql/README.CVS,v
+*** repo/pgsql/README.CVS,v	Sat Sep  4 07:18:23 2010
+--- repo.patched/pgsql/README.CVS,v	Mon Sep 13 19:25:12 2010
+***************
+*** 185,193 ****
+  1.1
+  date	2004.03.10.00.28.11;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2004.03.10.00.28.27;	author momjian;	state Exp;
+  branches;
+--- 185,198 ----
+  1.1
+  date	2004.03.10.00.28.11;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2004.03.10.00.28.11;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2004.03.10.00.28.27;	author momjian;	state Exp;
+  branches;
+***************
+*** 299,304 ****
+--- 304,317 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Remove HISTORY and INSTALL.  Have them generated by the tarball scripts.
+diff -cra repo/pgsql/contrib/xml2/expected/xml2.out,v repo.patched/pgsql/contrib/xml2/expected/xml2.out,v
+*** repo/pgsql/contrib/xml2/expected/xml2.out,v	Mon Sep 13 13:39:08 2010
+--- repo.patched/pgsql/contrib/xml2/expected/xml2.out,v	Mon Sep 13 15:42:55 2010
+***************
+*** 37,69 ****
+  1.1
+  date	2010.02.28.21.31.57;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1
+! 	1.1.4.1
+! 	1.1.6.1
+! 	1.1.8.1
+! 	1.1.10.1;
+  next	;
+  
+  1.1.2.1
+  date	2010.03.01.03.41.04;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.4.1
+  date	2010.03.01.03.41.11;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.6.1
+  date	2010.03.01.03.41.17;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.8.1
+  date	2010.03.01.03.41.22;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.10.1
+  date	2010.03.01.03.41.29;	author tgl;	state Exp;
+  branches;
+--- 37,94 ----
+  1.1
+  date	2010.02.28.21.31.57;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0
+! 	1.1.4.0
+! 	1.1.6.0
+! 	1.1.8.0
+! 	1.1.10.0;
+  next	;
+  
++ 1.1.2.0
++ date	2010.02.28.21.31.57;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2010.03.01.03.41.04;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.4.0
++ date	2010.02.28.21.31.57;	author tgl;	state dead;
++ branches;
++ next	1.1.4.1;
++ 
+  1.1.4.1
+  date	2010.03.01.03.41.11;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.6.0
++ date	2010.02.28.21.31.57;	author tgl;	state dead;
++ branches;
++ next	1.1.6.1;
++ 
+  1.1.6.1
+  date	2010.03.01.03.41.17;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.8.0
++ date	2010.02.28.21.31.57;	author tgl;	state dead;
++ branches;
++ next	1.1.8.1;
++ 
+  1.1.8.1
+  date	2010.03.01.03.41.22;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.10.0
++ date	2010.02.28.21.31.57;	author tgl;	state dead;
++ branches;
++ next	1.1.10.1;
++ 
+  1.1.10.1
+  date	2010.03.01.03.41.29;	author tgl;	state Exp;
+  branches;
+***************
+*** 331,336 ****
+--- 356,369 ----
+  @
+  
+  
++ 1.1.10.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.10.1
+  log
+  @Back-patch today's memory management fixups in contrib/xml2.
+***************
+*** 437,442 ****
+--- 470,483 ----
+  @
+  
+  
++ 1.1.8.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.8.1
+  log
+  @Back-patch today's memory management fixups in contrib/xml2.
+***************
+*** 537,542 ****
+--- 578,591 ----
+  @
+  
+  
++ 1.1.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.6.1
+  log
+  @Back-patch today's memory management fixups in contrib/xml2.
+***************
+*** 631,636 ****
+--- 680,693 ----
+  @
+  
+  
++ 1.1.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.4.1
+  log
+  @Back-patch today's memory management fixups in contrib/xml2.
+***************
+*** 689,694 ****
+--- 746,759 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Back-patch today's memory management fixups in contrib/xml2.
+diff -cra repo/pgsql/contrib/xml2/expected/xml2_1.out,v repo.patched/pgsql/contrib/xml2/expected/xml2_1.out,v
+*** repo/pgsql/contrib/xml2/expected/xml2_1.out,v	Mon Sep 13 13:39:08 2010
+--- repo.patched/pgsql/contrib/xml2/expected/xml2_1.out,v	Mon Sep 13 15:39:36 2010
+***************
+*** 37,69 ****
+  1.1
+  date	2010.03.01.18.07.59;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1
+! 	1.1.4.1
+! 	1.1.6.1
+! 	1.1.8.1
+! 	1.1.10.1;
+  next	;
+  
+  1.1.2.1
+  date	2010.03.01.18.08.07;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.4.1
+  date	2010.03.01.18.08.16;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.6.1
+  date	2010.03.01.18.08.27;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.8.1
+  date	2010.03.01.18.08.34;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.10.1
+  date	2010.03.01.18.08.41;	author tgl;	state Exp;
+  branches;
+--- 37,94 ----
+  1.1
+  date	2010.03.01.18.07.59;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0
+! 	1.1.4.0
+! 	1.1.6.0
+! 	1.1.8.0
+! 	1.1.10.0;
+  next	;
+  
++ 1.1.2.0
++ date	2010.03.01.18.07.59;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2010.03.01.18.08.07;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.4.0
++ date	2010.03.01.18.07.59;	author tgl;	state dead;
++ branches;
++ next	1.1.4.1;
++ 
+  1.1.4.1
+  date	2010.03.01.18.08.16;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.6.0
++ date	2010.03.01.18.07.59;	author tgl;	state dead;
++ branches;
++ next	1.1.6.1;
++ 
+  1.1.6.1
+  date	2010.03.01.18.08.27;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.8.0
++ date	2010.03.01.18.07.59;	author tgl;	state dead;
++ branches;
++ next	1.1.8.1;
++ 
+  1.1.8.1
+  date	2010.03.01.18.08.34;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.10.0
++ date	2010.03.01.18.07.59;	author tgl;	state dead;
++ branches;
++ next	1.1.10.1;
++ 
+  1.1.10.1
+  date	2010.03.01.18.08.41;	author tgl;	state Exp;
+  branches;
+***************
+*** 261,266 ****
+--- 286,299 ----
+  @
+  
+  
++ 1.1.10.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.10.1
+  log
+  @Fix contrib/xml2 so regression test still works when it's built without libxslt.
+***************
+*** 323,328 ****
+--- 356,369 ----
+  @
+  
+  
++ 1.1.8.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.8.1
+  log
+  @Fix contrib/xml2 so regression test still works when it's built without libxslt.
+***************
+*** 379,384 ****
+--- 420,433 ----
+  @
+  
+  
++ 1.1.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.6.1
+  log
+  @Fix contrib/xml2 so regression test still works when it's built without libxslt.
+***************
+*** 435,440 ****
+--- 484,497 ----
+  @
+  
+  
++ 1.1.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.4.1
+  log
+  @Fix contrib/xml2 so regression test still works when it's built without libxslt.
+***************
+*** 457,462 ****
+--- 514,527 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Fix contrib/xml2 so regression test still works when it's built without libxslt.
+diff -cra repo/pgsql/contrib/xml2/sql/xml2.sql,v repo.patched/pgsql/contrib/xml2/sql/xml2.sql,v
+*** repo/pgsql/contrib/xml2/sql/xml2.sql,v	Mon Sep 13 13:39:08 2010
+--- repo.patched/pgsql/contrib/xml2/sql/xml2.sql,v	Mon Sep 13 15:45:53 2010
+***************
+*** 37,69 ****
+  1.1
+  date	2010.02.28.21.31.57;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1
+! 	1.1.4.1
+! 	1.1.6.1
+! 	1.1.8.1
+! 	1.1.10.1;
+  next	;
+  
+  1.1.2.1
+  date	2010.03.01.03.41.04;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.4.1
+  date	2010.03.01.03.41.11;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.6.1
+  date	2010.03.01.03.41.17;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.8.1
+  date	2010.03.01.03.41.22;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.10.1
+  date	2010.03.01.03.41.29;	author tgl;	state Exp;
+  branches;
+--- 37,94 ----
+  1.1
+  date	2010.02.28.21.31.57;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0
+! 	1.1.4.0
+! 	1.1.6.0
+! 	1.1.8.0
+! 	1.1.10.0;
+  next	;
+  
++ 1.1.2.0
++ date	2010.02.28.21.31.57;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2010.03.01.03.41.04;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.4.0
++ date	2010.02.28.21.31.57;	author tgl;	state dead;
++ branches;
++ next	1.1.4.1;
++ 
+  1.1.4.1
+  date	2010.03.01.03.41.11;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.6.0
++ date	2010.02.28.21.31.57;	author tgl;	state dead;
++ branches;
++ next	1.1.6.1;
++ 
+  1.1.6.1
+  date	2010.03.01.03.41.17;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.8.0
++ date	2010.02.28.21.31.57;	author tgl;	state dead;
++ branches;
++ next	1.1.8.1;
++ 
+  1.1.8.1
+  date	2010.03.01.03.41.22;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.10.0
++ date	2010.02.28.21.31.57;	author tgl;	state dead;
++ branches;
++ next	1.1.10.1;
++ 
+  1.1.10.1
+  date	2010.03.01.03.41.29;	author tgl;	state Exp;
+  branches;
+***************
+*** 248,253 ****
+--- 273,286 ----
+  @
+  
+  
++ 1.1.10.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.10.1
+  log
+  @Back-patch today's memory management fixups in contrib/xml2.
+***************
+*** 309,314 ****
+--- 342,355 ----
+  @
+  
+  
++ 1.1.8.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.8.1
+  log
+  @Back-patch today's memory management fixups in contrib/xml2.
+***************
+*** 369,374 ****
+--- 410,423 ----
+  @
+  
+  
++ 1.1.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.6.1
+  log
+  @Back-patch today's memory management fixups in contrib/xml2.
+***************
+*** 429,434 ****
+--- 478,491 ----
+  @
+  
+  
++ 1.1.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.4.1
+  log
+  @Back-patch today's memory management fixups in contrib/xml2.
+***************
+*** 446,451 ****
+--- 503,516 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Back-patch today's memory management fixups in contrib/xml2.
+diff -cra repo/pgsql/doc/Attic/FAQ_brazilian,v repo.patched/pgsql/doc/Attic/FAQ_brazilian,v
+*** repo/pgsql/doc/Attic/FAQ_brazilian,v	Thu May 13 23:44:40 2010
+--- repo.patched/pgsql/doc/Attic/FAQ_brazilian,v	Mon Sep 13 19:24:08 2010
+***************
+*** 218,226 ****
+  1.1
+  date	2004.06.10.03.46.08;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2004.06.10.03.46.40;	author momjian;	state Exp;
+  branches;
+--- 218,231 ----
+  1.1
+  date	2004.06.10.03.46.08;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2004.06.10.03.46.08;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2004.06.10.03.46.40;	author momjian;	state Exp;
+  branches;
+***************
+*** 3027,3032 ****
+--- 3032,3045 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Add Brazilian version of FAQ.
+diff -cra repo/pgsql/doc/Attic/FAQ_chinese,v repo.patched/pgsql/doc/Attic/FAQ_chinese,v
+*** repo/pgsql/doc/Attic/FAQ_chinese,v	Thu May 13 23:39:10 2010
+--- repo.patched/pgsql/doc/Attic/FAQ_chinese,v	Mon Sep 13 19:11:27 2010
+***************
+*** 99,107 ****
+  1.1
+  date	2005.05.11.02.11.05;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2005.05.11.02.13.21;	author momjian;	state Exp;
+  branches;
+--- 99,112 ----
+  1.1
+  date	2005.05.11.02.11.05;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2005.05.11.02.11.05;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2005.05.11.02.13.21;	author momjian;	state Exp;
+  branches;
+***************
+*** 4438,4443 ****
+--- 4443,4456 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Backpatch new Chinese FAQ to 8.0.X.
+diff -cra repo/pgsql/doc/Attic/FAQ_chinese_simp,v repo.patched/pgsql/doc/Attic/FAQ_chinese_simp,v
+*** repo/pgsql/doc/Attic/FAQ_chinese_simp,v	Thu May 13 23:32:27 2010
+--- repo.patched/pgsql/doc/Attic/FAQ_chinese_simp,v	Mon Sep 13 19:07:31 2010
+***************
+*** 53,62 ****
+  1.1
+  date	2007.02.21.16.42.35;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1
+  	1.1.6.1;
+  next	;
+  
+  1.1.2.1
+  date	2007.02.21.16.42.43;	author momjian;	state Exp;
+  branches;
+--- 53,67 ----
+  1.1
+  date	2007.02.21.16.42.35;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0
+  	1.1.6.1;
+  next	;
+  
++ 1.1.2.0
++ date	2007.02.21.16.42.35;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2007.02.21.16.42.43;	author momjian;	state Exp;
+  branches;
+***************
+*** 918,923 ****
+--- 923,936 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Update Chinese FAQs to have two versions, a traditional Chinese version (Taiwan)
+diff -cra repo/pgsql/doc/Attic/FAQ_chinese_trad,v repo.patched/pgsql/doc/Attic/FAQ_chinese_trad,v
+*** repo/pgsql/doc/Attic/FAQ_chinese_trad,v	Thu May 13 23:32:27 2010
+--- repo.patched/pgsql/doc/Attic/FAQ_chinese_trad,v	Mon Sep 13 19:07:07 2010
+***************
+*** 53,62 ****
+  1.1
+  date	2007.02.21.16.42.35;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1
+  	1.1.6.1;
+  next	;
+  
+  1.1.2.1
+  date	2007.02.21.16.42.43;	author momjian;	state Exp;
+  branches;
+--- 53,67 ----
+  1.1
+  date	2007.02.21.16.42.35;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0
+  	1.1.6.1;
+  next	;
+  
++ 1.1.2.0
++ date	2007.02.21.16.42.35;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2007.02.21.16.42.43;	author momjian;	state Exp;
+  branches;
+***************
+*** 910,915 ****
+--- 915,928 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Update Chinese FAQs to have two versions, a traditional Chinese version (Taiwan)
+diff -cra repo/pgsql/doc/Attic/FAQ_russian,v repo.patched/pgsql/doc/Attic/FAQ_russian,v
+*** repo/pgsql/doc/Attic/FAQ_russian,v	Thu May 13 23:44:40 2010
+--- repo.patched/pgsql/doc/Attic/FAQ_russian,v	Mon Sep 13 19:32:10 2010
+***************
+*** 347,355 ****
+  1.1
+  date	2002.02.22.12.48.55;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2002.02.22.13.02.58;	author momjian;	state Exp;
+  branches;
+--- 347,360 ----
+  1.1
+  date	2002.02.22.12.48.55;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2002.02.22.12.48.55;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2002.02.22.13.02.58;	author momjian;	state Exp;
+  branches;
+***************
+*** 9517,9522 ****
+--- 9522,9535 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @BACKPATCH:
+diff -cra repo/pgsql/doc/Attic/README.Charsets,v repo.patched/pgsql/doc/Attic/README.Charsets,v
+*** repo/pgsql/doc/Attic/README.Charsets,v	Wed Sep 13 22:17:28 2000
+--- repo.patched/pgsql/doc/Attic/README.Charsets,v	Mon Sep 13 19:36:29 2010
+***************
+*** 16,24 ****
+  1.1
+  date	99.08.16.20.27.17;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	99.08.16.20.29.10;	author momjian;	state Exp;
+  branches;
+--- 16,29 ----
+  1.1
+  date	99.08.16.20.27.17;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	99.08.16.20.27.17;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	99.08.16.20.29.10;	author momjian;	state Exp;
+  branches;
+***************
+*** 163,168 ****
+--- 168,181 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @   I've sent 3 mails to pgsql-patches. There are two files, one for doc
+diff -cra repo/pgsql/doc/src/FAQ/Attic/FAQ_brazilian.html,v repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_brazilian.html,v
+*** repo/pgsql/doc/src/FAQ/Attic/FAQ_brazilian.html,v	Thu May 13 23:44:41 2010
+--- repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_brazilian.html,v	Mon Sep 13 19:23:12 2010
+***************
+*** 233,241 ****
+  1.1
+  date	2004.06.10.03.46.11;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2004.06.10.03.46.45;	author momjian;	state Exp;
+  branches;
+--- 233,246 ----
+  1.1
+  date	2004.06.10.03.46.11;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2004.06.10.03.46.11;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2004.06.10.03.46.45;	author momjian;	state Exp;
+  branches;
+***************
+*** 2917,2922 ****
+--- 2922,2935 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Add Brazilian version of FAQ.
+diff -cra repo/pgsql/doc/src/FAQ/Attic/FAQ_chinese.html,v repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_chinese.html,v
+*** repo/pgsql/doc/src/FAQ/Attic/FAQ_chinese.html,v	Thu May 13 23:39:10 2010
+--- repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_chinese.html,v	Mon Sep 13 19:13:00 2010
+***************
+*** 125,133 ****
+  1.1
+  date	2005.05.11.02.11.05;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2005.05.11.02.13.21;	author momjian;	state Exp;
+  branches;
+--- 125,138 ----
+  1.1
+  date	2005.05.11.02.11.05;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2005.05.11.02.11.05;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2005.05.11.02.13.21;	author momjian;	state Exp;
+  branches;
+***************
+*** 10306,10311 ****
+--- 10311,10324 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Backpatch new Chinese FAQ to 8.0.X.
+diff -cra repo/pgsql/doc/src/FAQ/Attic/FAQ_chinese_simp.html,v repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_chinese_simp.html,v
+*** repo/pgsql/doc/src/FAQ/Attic/FAQ_chinese_simp.html,v	Thu May 13 23:32:28 2010
+--- repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_chinese_simp.html,v	Mon Sep 13 19:06:37 2010
+***************
+*** 53,62 ****
+  1.1
+  date	2007.02.21.16.42.36;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1
+  	1.1.6.1;
+  next	;
+  
+  1.1.2.1
+  date	2007.02.21.16.42.43;	author momjian;	state Exp;
+  branches;
+--- 53,67 ----
+  1.1
+  date	2007.02.21.16.42.36;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0
+  	1.1.6.1;
+  next	;
+  
++ 1.1.2.0
++ date	2007.02.21.16.42.36;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2007.02.21.16.42.43;	author momjian;	state Exp;
+  branches;
+***************
+*** 1127,1132 ****
+--- 1132,1145 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Update Chinese FAQs to have two versions, a traditional Chinese version (Taiwan)
+diff -cra repo/pgsql/doc/src/FAQ/Attic/FAQ_chinese_trad.html,v repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_chinese_trad.html,v
+*** repo/pgsql/doc/src/FAQ/Attic/FAQ_chinese_trad.html,v	Thu May 13 23:32:28 2010
+--- repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_chinese_trad.html,v	Mon Sep 13 19:06:07 2010
+***************
+*** 53,62 ****
+  1.1
+  date	2007.02.21.16.42.36;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1
+  	1.1.6.1;
+  next	;
+  
+  1.1.2.1
+  date	2007.02.21.16.42.43;	author momjian;	state Exp;
+  branches;
+--- 53,67 ----
+  1.1
+  date	2007.02.21.16.42.36;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0
+  	1.1.6.1;
+  next	;
+  
++ 1.1.2.0
++ date	2007.02.21.16.42.36;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2007.02.21.16.42.43;	author momjian;	state Exp;
+  branches;
+***************
+*** 1119,1124 ****
+--- 1124,1137 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Update Chinese FAQs to have two versions, a traditional Chinese version (Taiwan)
+diff -cra repo/pgsql/doc/src/FAQ/Attic/FAQ_russian.html,v repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_russian.html,v
+*** repo/pgsql/doc/src/FAQ/Attic/FAQ_russian.html,v	Thu May 13 23:44:41 2010
+--- repo.patched/pgsql/doc/src/FAQ/Attic/FAQ_russian.html,v	Mon Sep 13 19:33:05 2010
+***************
+*** 367,375 ****
+  1.1
+  date	2002.02.22.12.48.55;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2002.02.22.13.03.01;	author momjian;	state Exp;
+  branches;
+--- 367,380 ----
+  1.1
+  date	2002.02.22.12.48.55;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2002.02.22.12.48.55;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2002.02.22.13.03.01;	author momjian;	state Exp;
+  branches;
+***************
+*** 8700,8705 ****
+--- 8705,8718 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @BACKPATCH:
+diff -cra repo/pgsql/doc/src/sgml/generate_history.pl,v repo.patched/pgsql/doc/src/sgml/generate_history.pl,v
+*** repo/pgsql/doc/src/sgml/generate_history.pl,v	Sat Sep  4 07:18:26 2010
+--- repo.patched/pgsql/doc/src/sgml/generate_history.pl,v	Mon Sep 13 15:56:11 2010
+***************
+*** 59,91 ****
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1
+! 	1.1.4.1
+! 	1.1.6.1
+! 	1.1.8.1
+! 	1.1.10.1;
+  next	;
+  
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.4.1
+  date	2009.05.02.20.17.45;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.6.1
+  date	2009.05.02.20.17.57;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.8.1
+  date	2009.05.02.20.18.09;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.10.1
+  date	2009.05.02.20.18.21;	author tgl;	state Exp;
+  branches;
+--- 59,116 ----
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0
+! 	1.1.4.0
+! 	1.1.6.0
+! 	1.1.8.0
+! 	1.1.10.0;
+  next	;
+  
++ 1.1.2.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.4.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.4.1;
++ 
+  1.1.4.1
+  date	2009.05.02.20.17.45;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.6.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.6.1;
++ 
+  1.1.6.1
+  date	2009.05.02.20.17.57;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.8.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.8.1;
++ 
+  1.1.8.1
+  date	2009.05.02.20.18.09;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.10.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.10.1;
++ 
+  1.1.10.1
+  date	2009.05.02.20.18.21;	author tgl;	state Exp;
+  branches;
+***************
+*** 171,176 ****
+--- 196,209 ----
+  @
+  
+  
++ 1.1.10.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.10.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 191,196 ****
+--- 224,237 ----
+  @
+  
+  
++ 1.1.8.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.8.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 208,213 ****
+--- 249,262 ----
+  @@
+  
+  
++ 1.1.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.6.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 225,230 ****
+--- 274,287 ----
+  @@
+  
+  
++ 1.1.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.4.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 242,247 ****
+--- 299,312 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+diff -cra repo/pgsql/doc/src/sgml/release-7.4.sgml,v repo.patched/pgsql/doc/src/sgml/release-7.4.sgml,v
+*** repo/pgsql/doc/src/sgml/release-7.4.sgml,v	Sat Sep  4 07:18:26 2010
+--- repo.patched/pgsql/doc/src/sgml/release-7.4.sgml,v	Mon Sep 13 19:04:54 2010
+***************
+*** 89,102 ****
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1
+! 	1.1.4.1
+! 	1.1.6.1
+! 	1.1.8.1
+! 	1.1.10.1
+  	1.1.12.1;
+  next	;
+  
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+--- 89,107 ----
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0
+! 	1.1.4.0
+! 	1.1.6.0
+! 	1.1.8.0
+! 	1.1.10.0
+  	1.1.12.1;
+  next	;
+  
++ 1.1.2.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+***************
+*** 132,137 ****
+--- 137,147 ----
+  branches;
+  next	;
+  
++ 1.1.4.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.4.1;
++ 
+  1.1.4.1
+  date	2009.05.02.20.17.45;	author tgl;	state Exp;
+  branches;
+***************
+*** 167,172 ****
+--- 177,187 ----
+  branches;
+  next	;
+  
++ 1.1.6.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.6.1;
++ 
+  1.1.6.1
+  date	2009.05.02.20.17.57;	author tgl;	state Exp;
+  branches;
+***************
+*** 202,207 ****
+--- 217,227 ----
+  branches;
+  next	;
+  
++ 1.1.8.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.8.1;
++ 
+  1.1.8.1
+  date	2009.05.02.20.18.09;	author tgl;	state Exp;
+  branches;
+***************
+*** 237,242 ****
+--- 257,267 ----
+  branches;
+  next	;
+  
++ 1.1.10.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.10.1;
++ 
+  1.1.10.1
+  date	2009.05.02.20.18.21;	author tgl;	state Exp;
+  branches;
+***************
+*** 5493,5498 ****
+--- 5518,5531 ----
+  @
+  
+  
++ 1.1.10.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.10.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 6107,6112 ****
+--- 6140,6153 ----
+  @
+  
+  
++ 1.1.8.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.8.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 6721,6726 ****
+--- 6762,6775 ----
+  @
+  
+  
++ 1.1.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.6.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 7335,7340 ****
+--- 7384,7397 ----
+  @
+  
+  
++ 1.1.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.4.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 7949,7954 ****
+--- 8006,8019 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+diff -cra repo/pgsql/doc/src/sgml/release-8.0.sgml,v repo.patched/pgsql/doc/src/sgml/release-8.0.sgml,v
+*** repo/pgsql/doc/src/sgml/release-8.0.sgml,v	Sat Sep  4 07:18:26 2010
+--- repo.patched/pgsql/doc/src/sgml/release-8.0.sgml,v	Mon Sep 13 19:04:23 2010
+***************
+*** 84,96 ****
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1
+! 	1.1.4.1
+! 	1.1.6.1
+! 	1.1.8.1
+  	1.1.10.1;
+  next	;
+  
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+--- 84,101 ----
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0
+! 	1.1.4.0
+! 	1.1.6.0
+! 	1.1.8.0
+  	1.1.10.1;
+  next	;
+  
++ 1.1.2.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+***************
+*** 126,131 ****
+--- 131,141 ----
+  branches;
+  next	;
+  
++ 1.1.4.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.4.1;
++ 
+  1.1.4.1
+  date	2009.05.02.20.17.45;	author tgl;	state Exp;
+  branches;
+***************
+*** 161,166 ****
+--- 171,181 ----
+  branches;
+  next	;
+  
++ 1.1.6.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.6.1;
++ 
+  1.1.6.1
+  date	2009.05.02.20.17.57;	author tgl;	state Exp;
+  branches;
+***************
+*** 196,201 ****
+--- 211,221 ----
+  branches;
+  next	;
+  
++ 1.1.8.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.8.1;
++ 
+  1.1.8.1
+  date	2009.05.02.20.18.09;	author tgl;	state Exp;
+  branches;
+***************
+*** 6332,6337 ****
+--- 6352,6365 ----
+  @
+  
+  
++ 1.1.8.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.8.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 7093,7098 ****
+--- 7121,7134 ----
+  @
+  
+  
++ 1.1.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.6.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 7854,7859 ****
+--- 7890,7903 ----
+  @
+  
+  
++ 1.1.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.4.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 8615,8620 ****
+--- 8659,8672 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+diff -cra repo/pgsql/doc/src/sgml/release-8.1.sgml,v repo.patched/pgsql/doc/src/sgml/release-8.1.sgml,v
+*** repo/pgsql/doc/src/sgml/release-8.1.sgml,v	Sat Sep  4 07:18:27 2010
+--- repo.patched/pgsql/doc/src/sgml/release-8.1.sgml,v	Mon Sep 13 19:03:58 2010
+***************
+*** 85,96 ****
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1
+! 	1.1.4.1
+! 	1.1.6.1
+  	1.1.8.1;
+  next	;
+  
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+--- 85,101 ----
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0
+! 	1.1.4.0
+! 	1.1.6.0
+  	1.1.8.1;
+  next	;
+  
++ 1.1.2.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+***************
+*** 126,131 ****
+--- 131,141 ----
+  branches;
+  next	;
+  
++ 1.1.4.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.4.1;
++ 
+  1.1.4.1
+  date	2009.05.02.20.17.45;	author tgl;	state Exp;
+  branches;
+***************
+*** 161,166 ****
+--- 171,181 ----
+  branches;
+  next	;
+  
++ 1.1.6.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.6.1;
++ 
+  1.1.6.1
+  date	2009.05.02.20.17.57;	author tgl;	state Exp;
+  branches;
+***************
+*** 6185,6190 ****
+--- 6200,6213 ----
+  @
+  
+  
++ 1.1.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.6.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 6979,6984 ****
+--- 7002,7015 ----
+  @
+  
+  
++ 1.1.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.4.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 7773,7778 ****
+--- 7804,7817 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+diff -cra repo/pgsql/doc/src/sgml/release-8.2.sgml,v repo.patched/pgsql/doc/src/sgml/release-8.2.sgml,v
+*** repo/pgsql/doc/src/sgml/release-8.2.sgml,v	Sat Sep  4 07:18:27 2010
+--- repo.patched/pgsql/doc/src/sgml/release-8.2.sgml,v	Mon Sep 13 19:03:30 2010
+***************
+*** 74,84 ****
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1
+! 	1.1.4.1
+  	1.1.6.1;
+  next	;
+  
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+--- 74,89 ----
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0
+! 	1.1.4.0
+  	1.1.6.1;
+  next	;
+  
++ 1.1.2.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+***************
+*** 114,119 ****
+--- 119,129 ----
+  branches;
+  next	;
+  
++ 1.1.4.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.4.1;
++ 
+  1.1.4.1
+  date	2009.05.02.20.17.45;	author tgl;	state Exp;
+  branches;
+***************
+*** 7071,7076 ****
+--- 7081,7094 ----
+  @
+  
+  
++ 1.1.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.4.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 8122,8127 ****
+--- 8140,8153 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+diff -cra repo/pgsql/doc/src/sgml/release-8.3.sgml,v repo.patched/pgsql/doc/src/sgml/release-8.3.sgml,v
+*** repo/pgsql/doc/src/sgml/release-8.3.sgml,v	Sat Sep  4 07:18:27 2010
+--- repo.patched/pgsql/doc/src/sgml/release-8.3.sgml,v	Mon Sep 13 19:02:55 2010
+***************
+*** 69,78 ****
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1
+  	1.1.4.1;
+  next	;
+  
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+--- 69,83 ----
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0
+  	1.1.4.1;
+  next	;
+  
++ 1.1.2.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+***************
+*** 7205,7210 ****
+--- 7210,7223 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+diff -cra repo/pgsql/doc/src/sgml/release-old.sgml,v repo.patched/pgsql/doc/src/sgml/release-old.sgml,v
+*** repo/pgsql/doc/src/sgml/release-old.sgml,v	Sat Sep  4 07:18:27 2010
+--- repo.patched/pgsql/doc/src/sgml/release-old.sgml,v	Mon Sep 13 19:01:33 2010
+***************
+*** 64,77 ****
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1
+! 	1.1.4.1
+! 	1.1.6.1
+! 	1.1.8.1
+! 	1.1.10.1
+  	1.1.24.1;
+  next	;
+  
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+--- 64,82 ----
+  1.1
+  date	2009.05.02.20.17.19;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0
+! 	1.1.4.0
+! 	1.1.6.0
+! 	1.1.8.0
+! 	1.1.10.0
+  	1.1.24.1;
+  next	;
+  
++ 1.1.2.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2009.05.02.20.17.33;	author tgl;	state Exp;
+  branches;
+***************
+*** 82,87 ****
+--- 87,97 ----
+  branches;
+  next	;
+  
++ 1.1.4.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.4.1;
++ 
+  1.1.4.1
+  date	2009.05.02.20.17.45;	author tgl;	state Exp;
+  branches;
+***************
+*** 92,97 ****
+--- 102,112 ----
+  branches;
+  next	;
+  
++ 1.1.6.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.6.1;
++ 
+  1.1.6.1
+  date	2009.05.02.20.17.57;	author tgl;	state Exp;
+  branches;
+***************
+*** 102,107 ****
+--- 117,127 ----
+  branches;
+  next	;
+  
++ 1.1.8.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.8.1;
++ 
+  1.1.8.1
+  date	2009.05.02.20.18.09;	author tgl;	state Exp;
+  branches;
+***************
+*** 112,117 ****
+--- 132,142 ----
+  branches;
+  next	;
+  
++ 1.1.10.0
++ date	2009.05.02.20.17.19;	author tgl;	state dead;
++ branches;
++ next	1.1.10.1;
++ 
+  1.1.10.1
+  date	2009.05.02.20.18.21;	author tgl;	state Exp;
+  branches;
+***************
+*** 7143,7148 ****
+--- 7168,7181 ----
+  @
+  
+  
++ 1.1.10.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.10.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 7160,7165 ****
+--- 7193,7206 ----
+  @@
+  
+  
++ 1.1.8.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.8.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 7188,7193 ****
+--- 7229,7242 ----
+  @
+  
+  
++ 1.1.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.6.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 7216,7221 ****
+--- 7265,7278 ----
+  @
+  
+  
++ 1.1.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.4.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+***************
+*** 7244,7249 ****
+--- 7301,7314 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Split the release notes into a separate file for each (active) major branch,
+diff -cra repo/pgsql/src/backend/po/pt_BR.po,v repo.patched/pgsql/src/backend/po/pt_BR.po,v
+*** repo/pgsql/src/backend/po/pt_BR.po,v	Sat Sep  4 07:18:36 2010
+--- repo.patched/pgsql/src/backend/po/pt_BR.po,v	Mon Sep 13 19:29:25 2010
+***************
+*** 243,251 ****
+  1.1
+  date	2003.11.14.23.59.12;	author petere;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2003.11.15.10.20.01;	author petere;	state Exp;
+  branches;
+--- 243,256 ----
+  1.1
+  date	2003.11.14.23.59.12;	author petere;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2003.11.14.23.59.12;	author petere;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2003.11.15.10.20.01;	author petere;	state Exp;
+  branches;
+***************
+*** 232106,232111 ****
+--- 232111,232124 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Translation updates
+diff -cra repo/pgsql/src/backend/storage/file/copydir.c,v repo.patched/pgsql/src/backend/storage/file/copydir.c,v
+*** repo/pgsql/src/backend/storage/file/copydir.c,v	Sat Sep  4 07:18:37 2010
+--- repo.patched/pgsql/src/backend/storage/file/copydir.c,v	Mon Sep 13 15:30:41 2010
+***************
+*** 19,27 ****
+  1.1
+  date	2010.07.02.17.03.30;	author rhaas;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2010.07.02.17.03.38;	author rhaas;	state Exp;
+  branches;
+--- 19,32 ----
+  1.1
+  date	2010.07.02.17.03.30;	author rhaas;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2010.07.02.17.03.30;	author rhaas;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2010.07.02.17.03.38;	author rhaas;	state Exp;
+  branches;
+***************
+*** 357,362 ****
+--- 362,375 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Move copydir.c from src/port to src/backend/storage/file
+diff -cra repo/pgsql/src/bin/pg_controldata/po/Attic/zh_TW.po,v repo.patched/pgsql/src/bin/pg_controldata/po/Attic/zh_TW.po,v
+*** repo/pgsql/src/bin/pg_controldata/po/Attic/zh_TW.po,v	Thu May 13 23:44:58 2010
+--- repo.patched/pgsql/src/bin/pg_controldata/po/Attic/zh_TW.po,v	Mon Sep 13 19:26:43 2010
+***************
+*** 173,181 ****
+  1.1
+  date	2004.01.05.19.15.48;	author petere;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2004.01.05.19.15.55;	author petere;	state Exp;
+  branches;
+--- 173,186 ----
+  1.1
+  date	2004.01.05.19.15.48;	author petere;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2004.01.05.19.15.48;	author petere;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2004.01.05.19.15.55;	author petere;	state Exp;
+  branches;
+***************
+*** 934,939 ****
+--- 939,952 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Translation updates
+diff -cra repo/pgsql/src/bin/pg_controldata/po/tr.po,v repo.patched/pgsql/src/bin/pg_controldata/po/tr.po,v
+*** repo/pgsql/src/bin/pg_controldata/po/tr.po,v	Sat Sep  4 07:18:42 2010
+--- repo.patched/pgsql/src/bin/pg_controldata/po/tr.po,v	Mon Sep 13 19:16:22 2010
+***************
+*** 190,196 ****
+  1.2
+  date	2004.10.18.17.56.45;	author petere;	state Exp;
+  branches
+! 	1.2.2.1
+  	1.2.6.1;
+  next	1.1;
+  
+--- 190,196 ----
+  1.2
+  date	2004.10.18.17.56.45;	author petere;	state Exp;
+  branches
+! 	1.2.2.0
+  	1.2.6.1;
+  next	1.1;
+  
+***************
+*** 199,204 ****
+--- 199,209 ----
+  branches;
+  next	;
+  
++ 1.2.2.0
++ date	2004.10.18.17.56.45;	author petere;	state dead;
++ branches;
++ next	1.2.2.1;
++ 
+  1.2.2.1
+  date	2004.10.30.08.22.08;	author petere;	state Exp;
+  branches;
+***************
+*** 1666,1671 ****
+--- 1671,1684 ----
+  @
+  
+  
++ 1.2.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.2.2.1
+  log
+  @New translations
+diff -cra repo/pgsql/src/bin/pg_resetxlog/po/tr.po,v repo.patched/pgsql/src/bin/pg_resetxlog/po/tr.po,v
+*** repo/pgsql/src/bin/pg_resetxlog/po/tr.po,v	Sat Sep  4 07:18:44 2010
+--- repo.patched/pgsql/src/bin/pg_resetxlog/po/tr.po,v	Mon Sep 13 19:17:36 2010
+***************
+*** 206,214 ****
+  1.1
+  date	2004.10.12.18.01.20;	author petere;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2004.10.30.08.22.11;	author petere;	state Exp;
+  branches;
+--- 206,219 ----
+  1.1
+  date	2004.10.12.18.01.20;	author petere;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2004.10.12.18.01.20;	author petere;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2004.10.30.08.22.11;	author petere;	state Exp;
+  branches;
+***************
+*** 3923,3928 ****
+--- 3928,3941 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @New translations
+diff -cra repo/pgsql/src/bin/pgaccess/Attic/Makefile,v repo.patched/pgsql/src/bin/pgaccess/Attic/Makefile,v
+*** repo/pgsql/src/bin/pgaccess/Attic/Makefile,v	Thu May  5 22:26:53 2005
+--- repo.patched/pgsql/src/bin/pgaccess/Attic/Makefile,v	Mon Sep 13 19:38:58 2010
+***************
+*** 124,133 ****
+  1.1
+  date	98.12.18.17.54.42;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1
+  	1.1.4.1;
+  next	;
+  
+  1.1.2.1
+  date	98.12.18.18.01.36;	author momjian;	state Exp;
+  branches;
+--- 124,138 ----
+  1.1
+  date	98.12.18.17.54.42;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0
+  	1.1.4.1;
+  next	;
+  
++ 1.1.2.0
++ date	98.12.18.17.54.42;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	98.12.18.18.01.36;	author momjian;	state Exp;
+  branches;
+***************
+*** 657,662 ****
+--- 662,675 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Included are patches for doc/README.mb and README.mb.jp.
+diff -cra repo/pgsql/src/bin/pgaccess/Attic/Makefile.in,v repo.patched/pgsql/src/bin/pgaccess/Attic/Makefile.in,v
+*** repo/pgsql/src/bin/pgaccess/Attic/Makefile.in,v	Sun Oct 31 14:56:37 1999
+--- repo.patched/pgsql/src/bin/pgaccess/Attic/Makefile.in,v	Mon Sep 13 19:34:25 2010
+***************
+*** 14,20 ****
+  1.2
+  date	99.10.31.12.23.41;	author momjian;	state Exp;
+  branches
+! 	1.2.2.1;
+  next	1.1;
+  
+  1.1
+--- 14,20 ----
+  1.2
+  date	99.10.31.12.23.41;	author momjian;	state Exp;
+  branches
+! 	1.2.2.0;
+  next	1.1;
+  
+  1.1
+***************
+*** 22,27 ****
+--- 22,32 ----
+  branches;
+  next	;
+  
++ 1.2.2.0
++ date	99.10.31.12.23.41;	author momjian;	state dead;
++ branches;
++ next	1.2.2.1;
++ 
+  1.2.2.1
+  date	99.10.31.12.34.10;	author momjian;	state Exp;
+  branches;
+***************
+*** 91,96 ****
+--- 96,109 ----
+  @
+  
+  
++ 1.2.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.2.2.1
+  log
+  @Update for 0.98 pgaccess
+diff -cra repo/pgsql/src/bin/pgaccess/Attic/libpgtcl.dll,v repo.patched/pgsql/src/bin/pgaccess/Attic/libpgtcl.dll,v
+*** repo/pgsql/src/bin/pgaccess/Attic/libpgtcl.dll,v	Sat Oct 30 12:00:54 1999
+--- repo.patched/pgsql/src/bin/pgaccess/Attic/libpgtcl.dll,v	Mon Sep 13 21:51:42 2010
+***************
+*** 16,25 ****
+  1.1
+  date	98.12.12.21.15.40;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1
+  	1.1.4.1;
+  next	;
+  
+  1.1.2.1
+  date	98.12.12.21.23.20;	author momjian;	state Exp;
+  branches;
+--- 16,30 ----
+  1.1
+  date	98.12.12.21.15.40;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0
+  	1.1.4.1;
+  next	;
+  
++ 1.1.2.0
++ date	98.12.12.21.15.40;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	98.12.12.21.23.20;	author momjian;	state Exp;
+  branches;
+***************
+*** 201,206 ****
+--- 206,219 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @update pgaccess to 0.93.
+diff -cra repo/pgsql/src/bin/pgaccess/Attic/libpq.dll,v repo.patched/pgsql/src/bin/pgaccess/Attic/libpq.dll,v
+*** repo/pgsql/src/bin/pgaccess/Attic/libpq.dll,v	Sat Oct 30 12:00:54 1999
+--- repo.patched/pgsql/src/bin/pgaccess/Attic/libpq.dll,v	Mon Sep 13 21:50:41 2010
+***************
+*** 16,25 ****
+  1.1
+  date	98.12.12.21.15.40;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1
+  	1.1.4.1;
+  next	;
+  
+  1.1.2.1
+  date	98.12.12.21.23.21;	author momjian;	state Exp;
+  branches;
+--- 16,30 ----
+  1.1
+  date	98.12.12.21.15.40;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0
+  	1.1.4.1;
+  next	;
+  
++ 1.1.2.0
++ date	98.12.12.21.15.40;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	98.12.12.21.23.21;	author momjian;	state Exp;
+  branches;
+***************
+*** 322,327 ****
+--- 327,340 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @update pgaccess to 0.93.
+diff -cra repo/pgsql/src/bin/pgaccess/Attic/pgaccess.sh,v repo.patched/pgsql/src/bin/pgaccess/Attic/pgaccess.sh,v
+*** repo/pgsql/src/bin/pgaccess/Attic/pgaccess.sh,v	Thu May  5 22:26:53 2005
+--- repo.patched/pgsql/src/bin/pgaccess/Attic/pgaccess.sh,v	Mon Sep 13 19:35:17 2010
+***************
+*** 72,78 ****
+  1.2
+  date	99.10.31.12.23.41;	author momjian;	state Exp;
+  branches
+! 	1.2.2.1;
+  next	1.1;
+  
+  1.1
+--- 72,78 ----
+  1.2
+  date	99.10.31.12.23.41;	author momjian;	state Exp;
+  branches
+! 	1.2.2.0;
+  next	1.1;
+  
+  1.1
+***************
+*** 80,85 ****
+--- 80,90 ----
+  branches;
+  next	;
+  
++ 1.2.2.0
++ date	99.10.31.12.23.41;	author momjian;	state dead;
++ branches;
++ next	1.2.2.1;
++ 
+  1.2.2.1
+  date	99.10.31.12.34.10;	author momjian;	state Exp;
+  branches;
+***************
+*** 218,223 ****
+--- 223,236 ----
+  @
+  
+  
++ 1.2.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.2.2.1
+  log
+  @Update for 0.98 pgaccess
+diff -cra repo/pgsql/src/bin/psql/po/tr.po,v repo.patched/pgsql/src/bin/psql/po/tr.po,v
+*** repo/pgsql/src/bin/psql/po/tr.po,v	Sat Sep  4 07:18:44 2010
+--- repo.patched/pgsql/src/bin/psql/po/tr.po,v	Mon Sep 13 19:18:43 2010
+***************
+*** 237,243 ****
+  1.2
+  date	2004.10.28.09.01.06;	author petere;	state Exp;
+  branches
+! 	1.2.2.1;
+  next	1.1;
+  
+  1.1
+--- 237,243 ----
+  1.2
+  date	2004.10.28.09.01.06;	author petere;	state Exp;
+  branches
+! 	1.2.2.0;
+  next	1.1;
+  
+  1.1
+***************
+*** 245,250 ****
+--- 245,255 ----
+  branches;
+  next	;
+  
++ 1.2.2.0
++ date	2004.10.28.09.01.06;	author petere;	state dead;
++ branches;
++ next	1.2.2.1;
++ 
+  1.2.2.1
+  date	2004.10.30.08.22.13;	author petere;	state Exp;
+  branches;
+***************
+*** 27211,27216 ****
+--- 27216,27229 ----
+  @
+  
+  
++ 1.2.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.2.2.1
+  log
+  @New translations
+diff -cra repo/pgsql/src/bin/scripts/po/tr.po,v repo.patched/pgsql/src/bin/scripts/po/tr.po,v
+*** repo/pgsql/src/bin/scripts/po/tr.po,v	Sat Sep  4 07:18:45 2010
+--- repo.patched/pgsql/src/bin/scripts/po/tr.po,v	Mon Sep 13 19:19:47 2010
+***************
+*** 211,219 ****
+  1.1
+  date	2004.10.18.17.58.54;	author petere;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2004.10.30.08.22.15;	author petere;	state Exp;
+  branches;
+--- 211,224 ----
+  1.1
+  date	2004.10.18.17.58.54;	author petere;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2004.10.18.17.58.54;	author petere;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2004.10.30.08.22.15;	author petere;	state Exp;
+  branches;
+***************
+*** 5132,5137 ****
+--- 5137,5150 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @New translations
+diff -cra repo/pgsql/src/data/Attic/isocz-wincz.tab,v repo.patched/pgsql/src/data/Attic/isocz-wincz.tab,v
+*** repo/pgsql/src/data/Attic/isocz-wincz.tab,v	Mon Sep 13 13:39:08 2010
+--- repo.patched/pgsql/src/data/Attic/isocz-wincz.tab,v	Mon Sep 13 19:37:25 2010
+***************
+*** 57,65 ****
+  1.1
+  date	99.08.16.20.27.19;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	99.08.16.20.29.11;	author momjian;	state Exp;
+  branches;
+--- 57,70 ----
+  1.1
+  date	99.08.16.20.27.19;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	99.08.16.20.27.19;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	99.08.16.20.29.11;	author momjian;	state Exp;
+  branches;
+***************
+*** 104,109 ****
+--- 109,122 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @   I've sent 3 mails to pgsql-patches. There are two files, one for doc
+diff -cra repo/pgsql/src/interfaces/jdbc/org/postgresql/Attic/errors_pt_BR.properties,v repo.patched/pgsql/src/interfaces/jdbc/org/postgresql/Attic/errors_pt_BR.properties,v
+*** repo/pgsql/src/interfaces/jdbc/org/postgresql/Attic/errors_pt_BR.properties,v	Thu May 13 23:45:02 2010
+--- repo.patched/pgsql/src/interfaces/jdbc/org/postgresql/Attic/errors_pt_BR.properties,v	Mon Sep 13 19:30:34 2010
+***************
+*** 44,52 ****
+  1.1
+  date	2003.11.14.23.59.12;	author petere;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	2003.11.15.10.20.02;	author petere;	state Exp;
+  branches;
+--- 44,57 ----
+  1.1
+  date	2003.11.14.23.59.12;	author petere;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	2003.11.14.23.59.12;	author petere;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2003.11.15.10.20.02;	author petere;	state Exp;
+  branches;
+***************
+*** 198,203 ****
+--- 203,216 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Translation updates
+diff -cra repo/pgsql/src/interfaces/jdbc/org/postgresql/test/jdbc2/Attic/OID74Test.java,v repo.patched/pgsql/src/interfaces/jdbc/org/postgresql/test/jdbc2/Attic/OID74Test.java,v
+*** repo/pgsql/src/interfaces/jdbc/org/postgresql/test/jdbc2/Attic/OID74Test.java,v	Thu May 13 23:45:02 2010
+--- repo.patched/pgsql/src/interfaces/jdbc/org/postgresql/test/jdbc2/Attic/OID74Test.java,v	Mon Sep 13 19:28:16 2010
+***************
+*** 48,54 ****
+  1.2
+  date	2003.12.17.15.45.05;	author davec;	state Exp;
+  branches
+! 	1.2.2.1;
+  next	1.1;
+  
+  1.1
+--- 48,54 ----
+  1.2
+  date	2003.12.17.15.45.05;	author davec;	state Exp;
+  branches
+! 	1.2.2.0;
+  next	1.1;
+  
+  1.1
+***************
+*** 56,61 ****
+--- 56,66 ----
+  branches;
+  next	;
+  
++ 1.2.2.0
++ date	2003.12.17.15.45.05;	author davec;	state dead;
++ branches;
++ next	1.2.2.1;
++ 
+  1.2.2.1
+  date	2003.12.17.15.48.40;	author davec;	state Exp;
+  branches;
+***************
+*** 286,291 ****
+--- 291,304 ----
+  @
+  
+  
++ 1.2.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.2.2.1
+  log
+  @back patching fix for compat 7.1 binary stream issues with the new protocol
+diff -cra repo/pgsql/src/interfaces/libpq/po/tr.po,v repo.patched/pgsql/src/interfaces/libpq/po/tr.po,v
+*** repo/pgsql/src/interfaces/libpq/po/tr.po,v	Sat Sep  4 07:18:51 2010
+--- repo.patched/pgsql/src/interfaces/libpq/po/tr.po,v	Mon Sep 13 19:21:11 2010
+***************
+*** 210,216 ****
+  1.2
+  date	2004.10.28.09.01.06;	author petere;	state Exp;
+  branches
+! 	1.2.2.1;
+  next	1.1;
+  
+  1.1
+--- 210,216 ----
+  1.2
+  date	2004.10.28.09.01.06;	author petere;	state Exp;
+  branches
+! 	1.2.2.0;
+  next	1.1;
+  
+  1.1
+***************
+*** 218,223 ****
+--- 218,228 ----
+  branches;
+  next	;
+  
++ 1.2.2.0
++ date	2004.10.28.09.01.06;	author petere;	state dead;
++ branches;
++ next	1.2.2.1;
++ 
+  1.2.2.1
+  date	2004.10.30.08.22.17;	author petere;	state Exp;
+  branches;
+***************
+*** 5568,5573 ****
+--- 5573,5586 ----
+  @
+  
+  
++ 1.2.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.2.2.1
+  log
+  @New translations
+diff -cra repo/pgsql/src/interfaces/python/Attic/advanced.py,v repo.patched/pgsql/src/interfaces/python/Attic/advanced.py,v
+*** repo/pgsql/src/interfaces/python/Attic/advanced.py,v	Mon May 10 12:10:39 1999
+--- repo.patched/pgsql/src/interfaces/python/Attic/advanced.py,v	Mon Sep 13 21:45:36 2010
+***************
+*** 14,22 ****
+  1.1
+  date	98.12.17.01.43.03;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	98.12.17.01.43.38;	author momjian;	state Exp;
+  branches;
+--- 14,27 ----
+  1.1
+  date	98.12.17.01.43.03;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	98.12.17.01.43.03;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	98.12.17.01.43.38;	author momjian;	state Exp;
+  branches;
+***************
+*** 214,219 ****
+--- 219,232 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Upgrade to Pygress 2.2.
+diff -cra repo/pgsql/src/interfaces/python/Attic/basics.py,v repo.patched/pgsql/src/interfaces/python/Attic/basics.py,v
+*** repo/pgsql/src/interfaces/python/Attic/basics.py,v	Mon May 10 12:10:40 1999
+--- repo.patched/pgsql/src/interfaces/python/Attic/basics.py,v	Mon Sep 13 21:46:14 2010
+***************
+*** 14,22 ****
+  1.1
+  date	98.12.17.01.43.03;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	98.12.17.01.43.38;	author momjian;	state Exp;
+  branches;
+--- 14,27 ----
+  1.1
+  date	98.12.17.01.43.03;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	98.12.17.01.43.03;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	98.12.17.01.43.38;	author momjian;	state Exp;
+  branches;
+***************
+*** 327,332 ****
+--- 332,345 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Upgrade to Pygress 2.2.
+diff -cra repo/pgsql/src/interfaces/python/Attic/func.py,v repo.patched/pgsql/src/interfaces/python/Attic/func.py,v
+*** repo/pgsql/src/interfaces/python/Attic/func.py,v	Mon May 10 12:10:41 1999
+--- repo.patched/pgsql/src/interfaces/python/Attic/func.py,v	Mon Sep 13 21:47:00 2010
+***************
+*** 14,22 ****
+  1.1
+  date	98.12.17.01.43.03;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	98.12.17.01.43.38;	author momjian;	state Exp;
+  branches;
+--- 14,27 ----
+  1.1
+  date	98.12.17.01.43.03;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	98.12.17.01.43.03;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	98.12.17.01.43.38;	author momjian;	state Exp;
+  branches;
+***************
+*** 236,241 ****
+--- 241,254 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Upgrade to Pygress 2.2.
+diff -cra repo/pgsql/src/interfaces/python/Attic/mkdefines,v repo.patched/pgsql/src/interfaces/python/Attic/mkdefines,v
+*** repo/pgsql/src/interfaces/python/Attic/mkdefines,v	Fri Jun 22 13:48:39 2001
+--- repo.patched/pgsql/src/interfaces/python/Attic/mkdefines,v	Mon Sep 13 21:49:15 2010
+***************
+*** 44,52 ****
+  1.1
+  date	98.12.17.01.43.03;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	98.12.17.01.43.38;	author momjian;	state Exp;
+  branches;
+--- 44,57 ----
+  1.1
+  date	98.12.17.01.43.03;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	98.12.17.01.43.03;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	98.12.17.01.43.38;	author momjian;	state Exp;
+  branches;
+***************
+*** 125,130 ****
+--- 130,143 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Upgrade to Pygress 2.2.
+diff -cra repo/pgsql/src/interfaces/python/Attic/pg.py,v repo.patched/pgsql/src/interfaces/python/Attic/pg.py,v
+*** repo/pgsql/src/interfaces/python/Attic/pg.py,v	Mon Sep 13 13:39:08 2010
+--- repo.patched/pgsql/src/interfaces/python/Attic/pg.py,v	Mon Sep 13 21:48:31 2010
+***************
+*** 131,139 ****
+  1.1
+  date	98.12.17.01.43.03;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	98.12.17.01.43.38;	author momjian;	state Exp;
+  branches;
+--- 131,144 ----
+  1.1
+  date	98.12.17.01.43.03;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	98.12.17.01.43.03;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	98.12.17.01.43.38;	author momjian;	state Exp;
+  branches;
+***************
+*** 958,963 ****
+--- 963,976 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Upgrade to Pygress 2.2.
+diff -cra repo/pgsql/src/interfaces/python/Attic/pgtools.py,v repo.patched/pgsql/src/interfaces/python/Attic/pgtools.py,v
+*** repo/pgsql/src/interfaces/python/Attic/pgtools.py,v	Mon May 10 12:10:45 1999
+--- repo.patched/pgsql/src/interfaces/python/Attic/pgtools.py,v	Mon Sep 13 21:47:42 2010
+***************
+*** 14,22 ****
+  1.1
+  date	98.12.17.01.43.04;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	98.12.17.01.43.39;	author momjian;	state Exp;
+  branches;
+--- 14,27 ----
+  1.1
+  date	98.12.17.01.43.04;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	98.12.17.01.43.04;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	98.12.17.01.43.39;	author momjian;	state Exp;
+  branches;
+***************
+*** 91,96 ****
+--- 96,109 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Upgrade to Pygress 2.2.
+diff -cra repo/pgsql/src/interfaces/python/Attic/syscat.py,v repo.patched/pgsql/src/interfaces/python/Attic/syscat.py,v
+*** repo/pgsql/src/interfaces/python/Attic/syscat.py,v	Mon May 10 12:10:45 1999
+--- repo.patched/pgsql/src/interfaces/python/Attic/syscat.py,v	Mon Sep 13 21:44:22 2010
+***************
+*** 14,22 ****
+  1.1
+  date	98.12.17.01.43.04;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	98.12.17.01.43.39;	author momjian;	state Exp;
+  branches;
+--- 14,27 ----
+  1.1
+  date	98.12.17.01.43.04;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	98.12.17.01.43.04;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	98.12.17.01.43.39;	author momjian;	state Exp;
+  branches;
+***************
+*** 176,181 ****
+--- 181,194 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Upgrade to Pygress 2.2.
+diff -cra repo/pgsql/src/pl/plperl/plperl_opmask.pl,v repo.patched/pgsql/src/pl/plperl/plperl_opmask.pl,v
+*** repo/pgsql/src/pl/plperl/plperl_opmask.pl,v	Sat Sep  4 07:18:51 2010
+--- repo.patched/pgsql/src/pl/plperl/plperl_opmask.pl,v	Mon Sep 13 15:35:19 2010
+***************
+*** 26,64 ****
+  1.1
+  date	2010.05.13.16.39.43;	author adunstan;	state Exp;
+  branches
+! 	1.1.2.1
+! 	1.1.4.1
+! 	1.1.6.1
+! 	1.1.8.1
+! 	1.1.10.1
+! 	1.1.12.1;
+  next	;
+  
+  1.1.2.1
+  date	2010.05.13.16.40.36;	author adunstan;	state Exp;
+  branches;
+  next	;
+  
+  1.1.4.1
+  date	2010.05.13.16.42.51;	author adunstan;	state Exp;
+  branches;
+  next	;
+  
+  1.1.6.1
+  date	2010.05.13.16.43.14;	author adunstan;	state Exp;
+  branches;
+  next	;
+  
+  1.1.8.1
+  date	2010.05.13.16.43.40;	author adunstan;	state Exp;
+  branches;
+  next	;
+  
+  1.1.10.1
+  date	2010.05.13.16.44.03;	author adunstan;	state Exp;
+  branches;
+  next	;
+  
+  1.1.12.1
+  date	2010.05.13.16.44.35;	author adunstan;	state Exp;
+  branches;
+--- 26,94 ----
+  1.1
+  date	2010.05.13.16.39.43;	author adunstan;	state Exp;
+  branches
+! 	1.1.2.0
+! 	1.1.4.0
+! 	1.1.6.0
+! 	1.1.8.0
+! 	1.1.10.0
+! 	1.1.12.0;
+  next	;
+  
++ 1.1.2.0
++ date	2010.05.13.16.39.43;	author adunstan;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2010.05.13.16.40.36;	author adunstan;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.4.0
++ date	2010.05.13.16.39.43;	author adunstan;	state dead;
++ branches;
++ next	1.1.4.1;
++ 
+  1.1.4.1
+  date	2010.05.13.16.42.51;	author adunstan;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.6.0
++ date	2010.05.13.16.39.43;	author adunstan;	state dead;
++ branches;
++ next	1.1.6.1;
++ 
+  1.1.6.1
+  date	2010.05.13.16.43.14;	author adunstan;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.8.0
++ date	2010.05.13.16.39.43;	author adunstan;	state dead;
++ branches;
++ next	1.1.8.1;
++ 
+  1.1.8.1
+  date	2010.05.13.16.43.40;	author adunstan;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.10.0
++ date	2010.05.13.16.39.43;	author adunstan;	state dead;
++ branches;
++ next	1.1.10.1;
++ 
+  1.1.10.1
+  date	2010.05.13.16.44.03;	author adunstan;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.12.0
++ date	2010.05.13.16.39.43;	author adunstan;	state dead;
++ branches;
++ next	1.1.12.1;
++ 
+  1.1.12.1
+  date	2010.05.13.16.44.35;	author adunstan;	state Exp;
+  branches;
+***************
+*** 156,161 ****
+--- 186,199 ----
+  @
+  
+  
++ 1.1.12.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.12.1
+  log
+  @Abandon the use of Perl's Safe.pm to enforce restrictions in plperl, as it is
+***************
+*** 198,203 ****
+--- 236,249 ----
+  @
+  
+  
++ 1.1.10.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.10.1
+  log
+  @Abandon the use of Perl's Safe.pm to enforce restrictions in plperl, as it is
+***************
+*** 240,245 ****
+--- 286,299 ----
+  @
+  
+  
++ 1.1.8.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.8.1
+  log
+  @Abandon the use of Perl's Safe.pm to enforce restrictions in plperl, as it is
+***************
+*** 282,287 ****
+--- 336,349 ----
+  @
+  
+  
++ 1.1.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.6.1
+  log
+  @Abandon the use of Perl's Safe.pm to enforce restrictions in plperl, as it is
+***************
+*** 324,329 ****
+--- 386,399 ----
+  @
+  
+  
++ 1.1.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.4.1
+  log
+  @Abandon the use of Perl's Safe.pm to enforce restrictions in plperl, as it is
+***************
+*** 366,371 ****
+--- 436,449 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Abandon the use of Perl's Safe.pm to enforce restrictions in plperl, as it is
+diff -cra repo/pgsql/src/pl/plpgsql/Attic/enable_plpgsql,v repo.patched/pgsql/src/pl/plpgsql/Attic/enable_plpgsql,v
+*** repo/pgsql/src/pl/plpgsql/Attic/enable_plpgsql,v	Mon Sep 13 13:39:09 2010
+--- repo.patched/pgsql/src/pl/plpgsql/Attic/enable_plpgsql,v	Mon Sep 13 19:40:19 2010
+***************
+*** 19,27 ****
+  1.1
+  date	98.12.13.05.22.58;	author momjian;	state Exp;
+  branches
+! 	1.1.2.1;
+  next	;
+  
+  1.1.2.1
+  date	98.12.13.05.23.14;	author momjian;	state Exp;
+  branches;
+--- 19,32 ----
+  1.1
+  date	98.12.13.05.22.58;	author momjian;	state Exp;
+  branches
+! 	1.1.2.0;
+  next	;
+  
++ 1.1.2.0
++ date	98.12.13.05.22.58;	author momjian;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	98.12.13.05.23.14;	author momjian;	state Exp;
+  branches;
+***************
+*** 117,122 ****
+--- 122,135 ----
+  @@
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Add enable_plpgsql from Oliver.
+diff -cra repo/pgsql/src/pl/plpython/expected/Attic/plpython_error_3.out,v repo.patched/pgsql/src/pl/plpython/expected/Attic/plpython_error_3.out,v
+*** repo/pgsql/src/pl/plpython/expected/Attic/plpython_error_3.out,v	Thu May 13 23:36:03 2010
+--- repo.patched/pgsql/src/pl/plpython/expected/Attic/plpython_error_3.out,v	Mon Sep 13 16:15:12 2010
+***************
+*** 81,89 ****
+  1.1
+  date	2006.11.21.21.51.05;	author tgl;	state Exp;
+  branches
+! 	1.1.6.1;
+  next	;
+  
+  1.1.6.1
+  date	2008.07.28.18.45.05;	author tgl;	state Exp;
+  branches;
+--- 81,94 ----
+  1.1
+  date	2006.11.21.21.51.05;	author tgl;	state Exp;
+  branches
+! 	1.1.6.0;
+  next	;
+  
++ 1.1.6.0
++ date	2006.11.21.21.51.05;	author tgl;	state dead;
++ branches;
++ next	1.1.6.1;
++ 
+  1.1.6.1
+  date	2008.07.28.18.45.05;	author tgl;	state Exp;
+  branches;
+***************
+*** 244,249 ****
+--- 249,262 ----
+  @
+  
+  
++ 1.1.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.6.1
+  log
+  @Update 8.1 and 8.0 plpython to work with Python 2.5.  This backports several
+diff -cra repo/pgsql/src/test/regress/expected/Attic/join_1.out,v repo.patched/pgsql/src/test/regress/expected/Attic/join_1.out,v
+*** repo/pgsql/src/test/regress/expected/Attic/join_1.out,v	Thu May 13 23:39:33 2010
+--- repo.patched/pgsql/src/test/regress/expected/Attic/join_1.out,v	Mon Sep 13 19:13:39 2010
+***************
+*** 186,192 ****
+  1.3
+  date	2005.03.26.03.38.01;	author tgl;	state Exp;
+  branches
+! 	1.3.2.1;
+  next	1.2;
+  
+  1.2
+--- 186,192 ----
+  1.3
+  date	2005.03.26.03.38.01;	author tgl;	state Exp;
+  branches
+! 	1.3.2.0;
+  next	1.2;
+  
+  1.2
+***************
+*** 199,204 ****
+--- 199,209 ----
+  branches;
+  next	;
+  
++ 1.3.2.0
++ date	2005.03.26.03.38.01;	author tgl;	state dead;
++ branches;
++ next	1.3.2.1;
++ 
+  1.3.2.1
+  date	2005.03.26.03.38.11;	author tgl;	state Exp;
+  branches;
+***************
+*** 4282,4287 ****
+--- 4287,4300 ----
+  @
+  
+  
++ 1.3.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.3.2.1
+  log
+  @Add Windows-specific variant comparison file.
+diff -cra repo/pgsql/src/tools/version_stamp.pl,v repo.patched/pgsql/src/tools/version_stamp.pl,v
+*** repo/pgsql/src/tools/version_stamp.pl,v	Sat Sep  4 07:19:26 2010
+--- repo.patched/pgsql/src/tools/version_stamp.pl,v	Mon Sep 13 16:12:29 2010
+***************
+*** 110,142 ****
+  1.1
+  date	2008.06.10.18.08.48;	author tgl;	state Exp;
+  branches
+! 	1.1.2.1
+! 	1.1.4.1
+! 	1.1.6.1
+! 	1.1.8.1
+! 	1.1.10.1;
+  next	;
+  
+  1.1.2.1
+  date	2008.06.10.18.08.55;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.4.1
+  date	2008.06.10.18.09.01;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.6.1
+  date	2008.06.10.18.09.08;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.8.1
+  date	2008.06.10.18.09.15;	author tgl;	state Exp;
+  branches;
+  next	;
+  
+  1.1.10.1
+  date	2008.06.10.18.09.26;	author tgl;	state Exp;
+  branches;
+--- 110,167 ----
+  1.1
+  date	2008.06.10.18.08.48;	author tgl;	state Exp;
+  branches
+! 	1.1.2.0
+! 	1.1.4.0
+! 	1.1.6.0
+! 	1.1.8.0
+! 	1.1.10.0;
+  next	;
+  
++ 1.1.2.0
++ date	2008.06.10.18.08.48;	author tgl;	state dead;
++ branches;
++ next	1.1.2.1;
++ 
+  1.1.2.1
+  date	2008.06.10.18.08.55;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.4.0
++ date	2008.06.10.18.08.48;	author tgl;	state dead;
++ branches;
++ next	1.1.4.1;
++ 
+  1.1.4.1
+  date	2008.06.10.18.09.01;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.6.0
++ date	2008.06.10.18.08.48;	author tgl;	state dead;
++ branches;
++ next	1.1.6.1;
++ 
+  1.1.6.1
+  date	2008.06.10.18.09.08;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.8.0
++ date	2008.06.10.18.08.48;	author tgl;	state dead;
++ branches;
++ next	1.1.8.1;
++ 
+  1.1.8.1
+  date	2008.06.10.18.09.15;	author tgl;	state Exp;
+  branches;
+  next	;
+  
++ 1.1.10.0
++ date	2008.06.10.18.08.48;	author tgl;	state dead;
++ branches;
++ next	1.1.10.1;
++ 
+  1.1.10.1
+  date	2008.06.10.18.09.26;	author tgl;	state Exp;
+  branches;
+***************
+*** 364,369 ****
+--- 389,402 ----
+  @
+  
+  
++ 1.1.10.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.10.1
+  log
+  @Create a script to handle stamping release version numbers into files,
+***************
+*** 388,393 ****
+--- 421,434 ----
+  @
+  
+  
++ 1.1.8.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.8.1
+  log
+  @Create a script to handle stamping release version numbers into files,
+***************
+*** 405,410 ****
+--- 446,459 ----
+  @
+  
+  
++ 1.1.6.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.6.1
+  log
+  @Create a script to handle stamping release version numbers into files,
+***************
+*** 422,427 ****
+--- 471,484 ----
+  @
+  
+  
++ 1.1.4.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.4.1
+  log
+  @Create a script to handle stamping release version numbers into files,
+***************
+*** 434,439 ****
+--- 491,504 ----
+  @
+  
+  
++ 1.1.2.0
++ log
++ @file  was added on branch  on 0000-00-00 00:00:00
++ @
++ text
++ @@
++ 
++ 
+  1.1.2.1
+  log
+  @Create a script to handle stamping release version numbers into files,
+EOFEOF
+
+chmod u-w pgsql/contrib/cube/expected/cube_1.out,v
+chmod u-w pgsql/doc/Attic/FAQ_HPUX,v
+chmod u-w pgsql/doc/Attic/FAQ_czeck,v
+chmod u-w pgsql/doc/Attic/FAQ_hungarian,v
+chmod u-w pgsql/doc/Attic/FAQ_turkish,v
+chmod u-w pgsql/doc/src/FAQ/Attic/FAQ_czech.html,v
+chmod u-w pgsql/doc/src/FAQ/Attic/FAQ_hungarian.html,v
+chmod u-w pgsql/doc/src/FAQ/Attic/FAQ_turkish.html,v
+chmod u-w pgsql/src/backend/utils/cache/typcache.c,v
+chmod u-w pgsql/src/bin/pg_dump/po/it.po,v
+chmod u-w pgsql/src/include/utils/typcache.h,v
+chmod u-w pgsql/src/port/unsetenv.c,v
+chmod u-w pgsql/src/test/regress/expected/geometry_2.out,v
+chmod u-w pgsql/src/test/regress/expected/update.out,v
+chmod u-w pgsql/src/test/regress/sql/update.sql,v
+chmod u-w pgsql/src/win32/Attic/ipc.patch,v
+chmod u-w pgsql/README.CVS,v
+chmod u-w pgsql/contrib/xml2/expected/xml2.out,v
+chmod u-w pgsql/contrib/xml2/expected/xml2_1.out,v
+chmod u-w pgsql/contrib/xml2/sql/xml2.sql,v
+chmod u-w pgsql/doc/Attic/FAQ_brazilian,v
+chmod u-w pgsql/doc/Attic/FAQ_chinese,v
+chmod u-w pgsql/doc/Attic/FAQ_chinese_simp,v
+chmod u-w pgsql/doc/Attic/FAQ_chinese_trad,v
+chmod u-w pgsql/doc/Attic/FAQ_russian,v
+chmod u-w pgsql/doc/Attic/README.Charsets,v
+chmod u-w pgsql/doc/src/FAQ/Attic/FAQ_brazilian.html,v
+chmod u-w pgsql/doc/src/FAQ/Attic/FAQ_chinese.html,v
+chmod u-w pgsql/doc/src/FAQ/Attic/FAQ_chinese_simp.html,v
+chmod u-w pgsql/doc/src/FAQ/Attic/FAQ_chinese_trad.html,v
+chmod u-w pgsql/doc/src/FAQ/Attic/FAQ_russian.html,v
+chmod u-w pgsql/doc/src/sgml/generate_history.pl,v
+chmod u-w pgsql/doc/src/sgml/release-7.4.sgml,v
+chmod u-w pgsql/doc/src/sgml/release-8.0.sgml,v
+chmod u-w pgsql/doc/src/sgml/release-8.1.sgml,v
+chmod u-w pgsql/doc/src/sgml/release-8.2.sgml,v
+chmod u-w pgsql/doc/src/sgml/release-8.3.sgml,v
+chmod u-w pgsql/doc/src/sgml/release-old.sgml,v
+chmod u-w pgsql/src/backend/po/pt_BR.po,v
+chmod u-w pgsql/src/backend/storage/file/copydir.c,v
+chmod u-w pgsql/src/bin/pg_controldata/po/Attic/zh_TW.po,v
+chmod u-w pgsql/src/bin/pg_controldata/po/tr.po,v
+chmod u-w pgsql/src/bin/pg_resetxlog/po/tr.po,v
+chmod u-w pgsql/src/bin/pgaccess/Attic/Makefile,v
+chmod u-w pgsql/src/bin/pgaccess/Attic/Makefile.in,v
+chmod u-w pgsql/src/bin/pgaccess/Attic/libpgtcl.dll,v
+chmod u-w pgsql/src/bin/pgaccess/Attic/libpq.dll,v
+chmod u-w pgsql/src/bin/pgaccess/Attic/pgaccess.sh,v
+chmod u-w pgsql/src/bin/psql/po/tr.po,v
+chmod u-w pgsql/src/bin/scripts/po/tr.po,v
+chmod u-w pgsql/src/data/Attic/isocz-wincz.tab,v
+chmod u-w pgsql/src/interfaces/jdbc/org/postgresql/Attic/errors_pt_BR.properties,v
+chmod u-w pgsql/src/interfaces/jdbc/org/postgresql/test/jdbc2/Attic/OID74Test.java,v
+chmod u-w pgsql/src/interfaces/libpq/po/tr.po,v
+chmod u-w pgsql/src/interfaces/python/Attic/advanced.py,v
+chmod u-w pgsql/src/interfaces/python/Attic/basics.py,v
+chmod u-w pgsql/src/interfaces/python/Attic/func.py,v
+chmod u-w pgsql/src/interfaces/python/Attic/mkdefines,v
+chmod u-w pgsql/src/interfaces/python/Attic/pg.py,v
+chmod u-w pgsql/src/interfaces/python/Attic/pgtools.py,v
+chmod u-w pgsql/src/interfaces/python/Attic/syscat.py,v
+chmod u-w pgsql/src/pl/plperl/plperl_opmask.pl,v
+chmod u-w pgsql/src/pl/plpgsql/Attic/enable_plpgsql,v
+chmod u-w pgsql/src/pl/plpython/expected/Attic/plpython_error_3.out,v
+chmod u-w pgsql/src/test/regress/expected/Attic/join_1.out,v
+chmod u-w pgsql/src/tools/version_stamp.pl,v
