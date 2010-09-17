@@ -39,3 +39,6 @@ git tag -d Release-1-6-0
 git tag REL8_0_0 REL8_0_0
 git branch -D REL8_0_0
 
+# Garbage collect, making the repo half the size
+git gc --aggressive --prune
+
