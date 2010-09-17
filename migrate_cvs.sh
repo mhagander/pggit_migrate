@@ -2,7 +2,7 @@
 
 set -e
 
-rsync -avzCH --exclude '#cvs.*' --delete anoncvs.postgresql.org::pgsql-cvs /cvsroot
+rsync -avzH --exclude '#cvs.*' --delete anoncvs.postgresql.org::pgsql-cvs /cvsroot
 
 # Clean up issues in the existing cvs repository (must always be done *after* the rsync
 # of course, since a new rsync will overwrite it)
