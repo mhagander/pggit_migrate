@@ -10,13 +10,15 @@ rsync -avzCH --exclude '#cvs.*' --delete anoncvs.postgresql.org::pgsql-cvs /cvsr
 
 
 # Do the conversion
+P=$(pwd)
 rm -rf /opt/gitrepo_cvs2git
-cvs2git --options=/root/cvs2git.options
+cvs2git --options=cvs2git.options
 mkdir /opt/gitrepo_cvs2git
-cd /opt/gitrepo_cvs2git
+pushd /opt/gitrepo_cvs2git
 git init --bare
-(cat /root/cvs2svn-tmp/git-blob.dat && cat /root/cvs2svn-tmp/git-dump.dat) | git fast-import --stats
-rm -rf /root/cvs2svn-tmp
+(cat $P/cvs2svn-tmp/git-blob.dat && cat $P/cvs2svn-tmp/git-dump.dat) | git fast-import --stats
+popd
+rm -rf cvs2svn-tmp
 
 cd /opt/gitrepo_cvs2git
 
