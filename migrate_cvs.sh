@@ -8,6 +8,8 @@ rsync -avzH --exclude '#cvs.*' --delete anoncvs.postgresql.org::pgsql-cvs /cvsro
 # of course, since a new rsync will overwrite it)
 ./repository_fixups
 
+# Enable old-style date format
+echo "DateFormat=old" >> /cvsroot/CVSROOT/config
 
 # Do the conversion
 P=$(pwd)
